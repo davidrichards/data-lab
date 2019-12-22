@@ -5,9 +5,11 @@ __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 index = {"foo": "00_core.ipynb",
          "is_traditional_distribution": "01_validate.ipynb",
          "extract_values": "01_validate.ipynb",
+         "extract_test_values": "01_validate.ipynb",
+         "DEFAULT_VALIDATION_SIZE": "01_validate.ipynb",
+         "plot_qq": "01_validate.ipynb",
          "validate_with_shapiro_wilk": "01_validate.ipynb",
          "validate_distribution": "01_validate.ipynb",
-         "DEFAULT_VALIDATION_SIZE": "01_validate.ipynb",
          "check_raises": "02_test_functions.ipynb",
          "check_is_near": "02_test_functions.ipynb",
          "check_equals": "02_test_functions.ipynb"}
