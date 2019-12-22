@@ -1,6 +1,7 @@
 {
   "lab": {
     "Overview": "/",
-    "Lab": "/core"
+    "Lab": "/core",
+    "Title": "/test_functions"
   }
 }
