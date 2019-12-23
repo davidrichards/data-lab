@@ -33,7 +33,6 @@ def train_loop(subjects, treatments, *a, **kw):
         for treatment in np.array(treatments):
             fn(subject, treatment, *a, **kw)
 
-
 #Cell
 def content_from_url(url, decode='utf-8', certs=None, **kw):
     """Use requests to fetch content from a url"""
