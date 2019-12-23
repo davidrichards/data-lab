@@ -14,11 +14,16 @@ index = {"foo": "00_core.ipynb",
          "validate_distribution": "01_validate.ipynb",
          "check_raises": "02_test_functions.ipynb",
          "check_is_near": "02_test_functions.ipynb",
-         "check_equals": "02_test_functions.ipynb"}
+         "check_equals": "02_test_functions.ipynb",
+         "artifact_storage": "03_loop.ipynb",
+         "generic_runner": "03_loop.ipynb",
+         "runner": "03_loop.ipynb",
+         "train_loop": "03_loop.ipynb"}
 
 modules = ["core.py",
            "simulate/distribution.py",
-           "util/test_functions.py"]
+           "util/test_functions.py",
+           "train/loop.py"]
 
 git_url = "https://github.com/your_github_username/lab/tree/master/"
 
