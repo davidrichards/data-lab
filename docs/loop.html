@@ -34,8 +34,21 @@ summary: "summary"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">model_selection</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.discriminant_analysis</span> <span class="kn">import</span> <span class="n">LinearDiscriminantAnalysis</span>
+<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
 </pre></div>
 
     </div>
@@ -55,7 +68,7 @@ summary: "summary"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="artifact_storage" class="doc_header"><code>artifact_storage</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L6" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>artifact_storage</code>(<strong>*<code>a</code></strong>, <strong>**<code>kw</code></strong>)</p>
+<h4 id="artifact_storage" class="doc_header"><code>artifact_storage</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L7" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>artifact_storage</code>(<strong>*<code>a</code></strong>, <strong>**<code>kw</code></strong>)</p>
 </blockquote>
 <p>Infer how the user intends to store
 artifacts: models, versions, treatments,
@@ -78,7 +91,7 @@ and evaluation results.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="generic_runner" class="doc_header"><code>generic_runner</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L14" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>generic_runner</code>(<strong><code>subject</code></strong>, <strong><code>treatment</code></strong>, <strong>*<code>a</code></strong>, <strong>**<code>kw</code></strong>)</p>
+<h4 id="generic_runner" class="doc_header"><code>generic_runner</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L15" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>generic_runner</code>(<strong><code>subject</code></strong>, <strong><code>treatment</code></strong>, <strong>*<code>a</code></strong>, <strong>**<code>kw</code></strong>)</p>
 </blockquote>
 <p>Naive concept. I have something smarter
 running somewhere, but I'm not sure where it is.</p>
@@ -100,7 +113,7 @@ running somewhere, but I'm not sure where it is.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="runner" class="doc_header"><code>runner</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L22" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>runner</code>(<strong>*<code>a</code></strong>, <strong>**<code>kw</code></strong>)</p>
+<h4 id="runner" class="doc_header"><code>runner</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L23" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>runner</code>(<strong>*<code>a</code></strong>, <strong>**<code>kw</code></strong>)</p>
 </blockquote>
 <p>Infer the runner and its artifact storage.</p>
 
@@ -121,7 +134,7 @@ running somewhere, but I'm not sure where it is.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="train_loop" class="doc_header"><code>train_loop</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L26" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>train_loop</code>(<strong><code>subjects</code></strong>, <strong><code>treatments</code></strong>, <strong>*<code>a</code></strong>, <strong>**<code>kw</code></strong>)</p>
+<h4 id="train_loop" class="doc_header"><code>train_loop</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L27" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>train_loop</code>(<strong><code>subjects</code></strong>, <strong><code>treatments</code></strong>, <strong>*<code>a</code></strong>, <strong>**<code>kw</code></strong>)</p>
 </blockquote>
 <p>The main training loop.</p>
 
@@ -165,13 +178,13 @@ running somewhere, but I'm not sure where it is.</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[10.42164023  9.2040922  10.05040423]
-t1: 11.42
-t2: 12.42
-t1: 10.2
-t2: 11.2
-t1: 11.05
-t2: 12.05
+<pre>[ 9.63264311  8.88684748 11.4332921 ]
+t1: 10.63
+t2: 11.63
+t1: 9.89
+t2: 10.89
+t1: 12.43
+t2: 13.43
 </pre>
 </div>
 </div>
@@ -180,18 +193,257 @@ t2: 12.05
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="content_from_url" class="doc_header"><code>content_from_url</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L38" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>content_from_url</code>(<strong><code>url</code></strong>, <strong><code>decode</code></strong>=<em><code>'utf-8'</code></em>, <strong><code>certs</code></strong>=<em><code>None</code></em>, <strong>**<code>kw</code></strong>)</p>
+</blockquote>
+<p>Use requests to fetch content from a url</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="white_list" class="doc_header"><code>white_list</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L46" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>white_list</code>(<strong><code>keywords</code></strong>, <strong><code>keys</code></strong>, <strong><code>require_keys</code></strong>=<em><code>False</code></em>)</p>
+</blockquote>
+<p>Filter a dictionary by a set of keys</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="dataframe_from_url" class="doc_header"><code>dataframe_from_url</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L52" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dataframe_from_url</code>(<strong><code>url</code></strong>, <strong>**<code>kw</code></strong>)</p>
+</blockquote>
+<p>Safely get data, decode it, use certs, and
+create a Pandas DataFrame from the content.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="values_from_url" class="doc_header"><code>values_from_url</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L59" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>values_from_url</code>(<strong><code>url</code></strong>, <strong>**<code>kw</code></strong>)</p>
+</blockquote>
+<p>Safely get values from a dataframe.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="k_fold" class="doc_header"><code>k_fold</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L64" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>k_fold</code>(<strong>**<code>kw</code></strong>)</p>
+</blockquote>
+<p>Use scikit-learn's KFold with some control
+on reasonable defaults.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="process_model" class="doc_header"><code>process_model</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L71" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>process_model</code>(<strong><code>name</code></strong>, <strong><code>model</code></strong>, <strong><code>X</code></strong>, <strong><code>Y</code></strong>, <strong><code>storage</code></strong>=<em><code>{}</code></em>, <strong><code>scoring</code></strong>=<em><code>'accuracy'</code></em>, <strong>**<code>kw</code></strong>)</p>
+</blockquote>
+<p>Process a model using K-Fold cross validation.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="store" class="doc_header"><code>store</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L80" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>store</code>(<strong><code>name</code></strong>, <strong><code>result</code></strong>, <strong><code>storage</code></strong>=<em><code>{}</code></em>)</p>
+</blockquote>
+<p>Simple storage of treatment results.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="plot_results" class="doc_header"><code>plot_results</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L84" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_results</code>(<strong><code>results</code></strong>, <strong><code>plot</code></strong>=<em><code>None</code></em>, <strong><code>title</code></strong>=<em><code>'Algorithm Comparison'</code></em>, <strong>**<code>kw</code></strong>)</p>
+</blockquote>
+<p>Create a box plot for each treatment in a results dictionary.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="cheap_loop" class="doc_header"><code>cheap_loop</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L95" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cheap_loop</code>(<strong><code>treatments</code></strong>, <strong><code>subjects</code></strong>, <strong><code>display</code></strong>=<em><code>True</code></em>, <strong>**<code>kw</code></strong>)</p>
+</blockquote>
+<p>Create models without hyperparameter fine tuning
+to determine which algorithms show promise on a particular
+dataset</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv&quot;</span>
+<span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;preg&#39;</span><span class="p">,</span> <span class="s1">&#39;plas&#39;</span><span class="p">,</span> <span class="s1">&#39;pres&#39;</span><span class="p">,</span> <span class="s1">&#39;skin&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;mass&#39;</span><span class="p">,</span> <span class="s1">&#39;pedi&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;class&#39;</span><span class="p">]</span>
+<span class="n">array</span> <span class="o">=</span> <span class="n">values_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">array</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">array</span><span class="p">[:,</span><span class="mi">8</span><span class="p">]</span>
+
+<span class="n">treatments</span> <span class="o">=</span> <span class="p">[</span>
+<span class="c1">#     (&#39;LR&#39;, LogisticRegression,</span>
+    <span class="p">(</span><span class="s1">&#39;LDA&#39;</span><span class="p">,</span> <span class="n">LinearDiscriminantAnalysis</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;KNN&#39;</span><span class="p">,</span> <span class="n">KNeighborsClassifier</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;CART&#39;</span><span class="p">,</span> <span class="n">DecisionTreeClassifier</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;NB&#39;</span><span class="p">,</span> <span class="n">GaussianNB</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;SVM&#39;</span><span class="p">,</span> <span class="n">SVC</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">subjects</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="n">cheap_loop</span><span class="p">(</span><span class="n">treatments</span><span class="p">,</span> <span class="n">subjects</span><span class="p">);</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>So, I don't have what I want yet, specifically:</p>
-<ul>
-<li>interfaces</li>
-<li>organizing and storing models</li>
-<li>reusing what already has been trained</li>
-<li>bringing in evaluation</li>
-<li>using good train/test split</li>
-<li>using good evalusation, even for imbalanced classes</li>
-</ul>
-<p>I don't want anything setup, but the part involving storage, reuse, reproducability, and transparency can be done here.</p>
+<p>The cheap_loop is a quick-and-dirty approach to treating data (no hyperparameters are explored).</p>
+<p>LogisticRegression is throwing warnings, so I'm just skipping it for now.</p>
+<p>Could use some slips, combine some other work I've done, approach different scoring, quite a few other things.</p>
 
 </div>
 </div>
