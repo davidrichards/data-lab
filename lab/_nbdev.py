@@ -19,15 +19,9 @@ index = {"foo": "00_core.ipynb",
          "generic_runner": "03_loop.ipynb",
          "runner": "03_loop.ipynb",
          "train_loop": "03_loop.ipynb",
-         "content_from_url": "03_loop.ipynb",
-         "white_list": "03_loop.ipynb",
-         "dataframe_from_url": "03_loop.ipynb",
-         "values_from_url": "03_loop.ipynb",
-         "k_fold": "03_loop.ipynb",
-         "process_model": "03_loop.ipynb",
-         "store": "03_loop.ipynb",
-         "plot_results": "03_loop.ipynb",
-         "cheap_loop": "03_loop.ipynb"}
+         "get_matches": "03_loop.ipynb",
+         "get_nth_match": "03_loop.ipynb",
+         "get_first_match": "03_loop.ipynb"}
 
 modules = ["core.py",
            "simulate/distribution.py",

@@ -42,6 +42,10 @@ summary: "summary"
 <span class="kn">import</span> <span class="nn">io</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">model_selection</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
 <span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
@@ -178,13 +182,13 @@ running somewhere, but I'm not sure where it is.</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[ 9.63264311  8.88684748 11.4332921 ]
-t1: 10.63
-t2: 11.63
-t1: 9.89
-t2: 10.89
-t1: 12.43
-t2: 13.43
+<pre>[ 9.9622511   8.25615328 10.52787943]
+t1: 10.96
+t2: 11.96
+t1: 9.26
+t2: 10.26
+t1: 11.53
+t2: 12.53
 </pre>
 </div>
 </div>
@@ -193,198 +197,90 @@ t2: 13.43
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So far, garbage.</p>
+<p>There's a possibility that I'm going this way, but I did that in reverse. So, I started fixing some things by training some models. And, that's giving me something more useful.</p>
+<p>The following is still wrong, but better.</p>
 
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="content_from_url" class="doc_header"><code>content_from_url</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L37" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>content_from_url</code>(<strong><code>url</code></strong>, <strong><code>decode</code></strong>=<em><code>'utf-8'</code></em>, <strong><code>certs</code></strong>=<em><code>None</code></em>, <strong>**<code>kw</code></strong>)</p>
-</blockquote>
-<p>Use requests to fetch content from a url</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="white_list" class="doc_header"><code>white_list</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L45" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>white_list</code>(<strong><code>keywords</code></strong>, <strong><code>keys</code></strong>, <strong><code>require_keys</code></strong>=<em><code>False</code></em>)</p>
-</blockquote>
-<p>Filter a dictionary by a set of keys</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="dataframe_from_url" class="doc_header"><code>dataframe_from_url</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L51" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dataframe_from_url</code>(<strong><code>url</code></strong>, <strong>**<code>kw</code></strong>)</p>
-</blockquote>
-<p>Safely get data, decode it, use certs, and
-create a Pandas DataFrame from the content.</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="values_from_url" class="doc_header"><code>values_from_url</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L58" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>values_from_url</code>(<strong><code>url</code></strong>, <strong>**<code>kw</code></strong>)</p>
-</blockquote>
-<p>Safely get values from a dataframe.</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="k_fold" class="doc_header"><code>k_fold</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L63" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>k_fold</code>(<strong>**<code>kw</code></strong>)</p>
-</blockquote>
-<p>Use scikit-learn's KFold with some control
-on reasonable defaults.</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="process_model" class="doc_header"><code>process_model</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L70" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>process_model</code>(<strong><code>name</code></strong>, <strong><code>model</code></strong>, <strong><code>X</code></strong>, <strong><code>Y</code></strong>, <strong><code>storage</code></strong>=<em><code>{}</code></em>, <strong><code>scoring</code></strong>=<em><code>'accuracy'</code></em>, <strong>**<code>kw</code></strong>)</p>
-</blockquote>
-<p>Process a model using K-Fold cross validation.</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="store" class="doc_header"><code>store</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L79" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>store</code>(<strong><code>name</code></strong>, <strong><code>result</code></strong>, <strong><code>storage</code></strong>=<em><code>{}</code></em>)</p>
-</blockquote>
-<p>Simple storage of treatment results.</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="plot_results" class="doc_header"><code>plot_results</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L83" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_results</code>(<strong><code>results</code></strong>, <strong><code>plot</code></strong>=<em><code>None</code></em>, <strong><code>title</code></strong>=<em><code>'Algorithm Comparison'</code></em>, <strong>**<code>kw</code></strong>)</p>
-</blockquote>
-<p>Create a box plot for each treatment in a results dictionary.</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="cheap_loop" class="doc_header"><code>cheap_loop</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L94" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cheap_loop</code>(<strong><code>treatments</code></strong>, <strong><code>subjects</code></strong>, <strong><code>display</code></strong>=<em><code>True</code></em>, <strong>**<code>kw</code></strong>)</p>
-</blockquote>
-<p>Create models without hyperparameter fine tuning
-to determine which algorithms show promise on a particular
-dataset</p>
-
-</div>
-
-</div>
-
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">content_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">decode</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">certs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Use requests to fetch content from a url&quot;&quot;&quot;</span>
+    <span class="n">kw</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">certs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;certs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">certs</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>
+    <span class="k">if</span> <span class="n">decode</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span> <span class="k">return</span> <span class="n">s</span>
+    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">decode</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">white_list</span><span class="p">(</span><span class="n">keywords</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">require_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Filter a dictionary by a set of keys&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">require_keys</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span><span class="n">keywords</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">}</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span><span class="n">keywords</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">dataframe_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Safely get data, decode it, use certs, and</span>
+<span class="sd">    create a Pandas DataFrame from the content.&quot;&quot;&quot;</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">content_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    <span class="n">kw</span> <span class="o">=</span> <span class="n">white_list</span><span class="p">(</span><span class="n">kw</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;names&#39;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">(</span><span class="n">content</span><span class="p">),</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">values_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Safely get values from a dataframe.&quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">dataframe_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span>
+
+<span class="k">def</span> <span class="nf">k_fold</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Use scikit-learn&#39;s KFold with some control</span>
+<span class="sd">    on reasonable defaults.&quot;&quot;&quot;</span>
+    <span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;n_splits&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}</span>
+    <span class="n">kw</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">defaults</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">KFold</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">process_model</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">storage</span><span class="o">=</span><span class="p">{},</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Process a model using K-Fold cross validation.&quot;&quot;&quot;</span>
+    <span class="n">kfold</span> <span class="o">=</span> <span class="n">k_fold</span><span class="p">()</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">cross_val_score</span><span class="p">(</span>
+        <span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span>
+        <span class="n">cv</span><span class="o">=</span><span class="n">kfold</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span>
+    <span class="p">)</span>
+    <span class="n">store</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">storage</span><span class="o">=</span><span class="n">storage</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">store</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">storage</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="sd">&quot;&quot;&quot;Simple storage of treatment results.&quot;&quot;&quot;</span>
+    <span class="n">storage</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
+
+<span class="k">def</span> <span class="nf">plot_results</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Algorithm Comparison&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create a box plot for each treatment in a results dictionary.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">plot</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">plot</span> <span class="o">=</span> <span class="n">plt</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plot</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+    <span class="n">plot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">cheap_loop</span><span class="p">(</span><span class="n">treatments</span><span class="p">,</span> <span class="n">subjects</span><span class="p">,</span> <span class="n">display</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create models without hyperparameter fine tuning</span>
+<span class="sd">    to determine which algorithms show promise on a particular</span>
+<span class="sd">    dataset&quot;&quot;&quot;</span>
+    <span class="n">storage</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span> <span class="ow">in</span> <span class="n">treatments</span><span class="p">:</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="n">subjects</span><span class="p">:</span>
+            <span class="n">process_model</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">model</span><span class="p">(),</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">storage</span><span class="o">=</span><span class="n">storage</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">display</span><span class="p">:</span> <span class="n">plot_results</span><span class="p">(</span><span class="n">storage</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">storage</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
 
@@ -428,7 +324,7 @@ dataset</p>
 
 
 <div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
+<img src="data:image/png;base64,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
 "
 >
 </div>
@@ -447,6 +343,845 @@ dataset</p>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cv</span> <span class="o">=</span> <span class="n">k_fold</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Understinding the interface with a bunch of training.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">(</span><span class="n">LinearDiscriminantAnalysis</span><span class="p">(),</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;fit_time&#39;: array([0.00284123, 0.00209188, 0.00207591, 0.002074  , 0.00186324,
+        0.00179315, 0.00176191, 0.00222778, 0.00173807, 0.00225019]),
+ &#39;score_time&#39;: array([0.00074077, 0.00052929, 0.00045204, 0.00051403, 0.00042701,
+        0.00041103, 0.00039101, 0.00042534, 0.000386  , 0.00049567]),
+ &#39;test_score&#39;: array([0.7012987 , 0.83116883, 0.75324675, 0.67532468, 0.77922078,
+        0.76623377, 0.84415584, 0.81818182, 0.76315789, 0.80263158])}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cv</span><span class="o">.</span><span class="vm">__dict__</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;n_splits&#39;: 10, &#39;shuffle&#39;: False, &#39;random_state&#39;: None}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">(</span><span class="n">LinearDiscriminantAnalysis</span><span class="p">(),</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;fit_time&#39;: array([0.00222588, 0.00221896, 0.0016861 , 0.00167203, 0.00145221]),
+ &#39;score_time&#39;: array([0.00042915, 0.00046015, 0.00040698, 0.00041199, 0.00033998]),
+ &#39;test_score&#39;: array([0.77272727, 0.74025974, 0.74025974, 0.81045752, 0.77777778])}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The n_jobs determines how many CPUs to use.</p>
+<p>Having a wrapper around such a powerful wrapper is weird, but not everything is scikit-learn. So, using a PyTorch example, wrapping with these tools, could be a good justification or a wake up moment that this really is a bad idea (the way I'm abstracting it).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">(</span><span class="n">LinearDiscriminantAnalysis</span><span class="p">(),</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
+[Parallel(n_jobs=1)]: Done   5 out of   5 | elapsed:    0.0s finished
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;fit_time&#39;: array([0.00283289, 0.003443  , 0.0022049 , 0.00180292, 0.00163603]),
+ &#39;score_time&#39;: array([0.00084019, 0.00051022, 0.0004847 , 0.0004189 , 0.00039029]),
+ &#39;test_score&#39;: array([0.77272727, 0.74025974, 0.74025974, 0.81045752, 0.77777778])}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">(</span><span class="n">LinearDiscriminantAnalysis</span><span class="p">(),</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[CV]  ................................................................
+[CV] ................................................. , total=   0.0s
+[CV]  ................................................................
+[CV] ................................................. , total=   0.0s
+[CV]  ................................................................
+[CV] ................................................. , total=   0.0s
+[CV]  ................................................................
+[CV] ................................................. , total=   0.0s
+[CV]  ................................................................
+[CV] ................................................. , total=   0.0s
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
+[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    0.0s remaining:    0.0s
+[Parallel(n_jobs=1)]: Done   5 out of   5 | elapsed:    0.0s finished
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;fit_time&#39;: array([0.0026927 , 0.00238109, 0.00245404, 0.00224495, 0.00217009]),
+ &#39;score_time&#39;: array([0.00056028, 0.00041699, 0.00064802, 0.00065184, 0.00063705]),
+ &#39;test_score&#39;: array([0.77272727, 0.74025974, 0.74025974, 0.81045752, 0.77777778])}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">(</span><span class="n">LinearDiscriminantAnalysis</span><span class="p">(),</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[CV]  ................................................................
+[CV] .................................... , score=0.773, total=   0.0s
+[CV]  ................................................................
+[CV] .................................... , score=0.740, total=   0.0s
+[CV]  ................................................................
+[CV] .................................... , score=0.740, total=   0.0s
+[CV]  ................................................................
+[CV] .................................... , score=0.810, total=   0.0s
+[CV]  ................................................................
+[CV] .................................... , score=0.778, total=   0.0s
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
+[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    0.0s remaining:    0.0s
+[Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:    0.0s remaining:    0.0s
+[Parallel(n_jobs=1)]: Done   5 out of   5 | elapsed:    0.0s finished
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;fit_time&#39;: array([0.00233173, 0.00268102, 0.00242209, 0.00202513, 0.00237703]),
+ &#39;score_time&#39;: array([0.00042295, 0.00044489, 0.00042987, 0.00041795, 0.00052691]),
+ &#39;test_score&#39;: array([0.77272727, 0.74025974, 0.74025974, 0.81045752, 0.77777778])}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>OK, so verbosity is kind of cool. The docs didn't show me what I could more easily just check here. I can get information about the concurrency, or see each job visually while it works.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">(</span><span class="n">LinearDiscriminantAnalysis</span><span class="p">(),</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">return_train_score</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;fit_time&#39;: array([0.00182199, 0.00171113, 0.00412798, 0.00208426, 0.00203609]),
+ &#39;score_time&#39;: array([0.00042486, 0.0007627 , 0.00122786, 0.00051093, 0.00054097]),
+ &#39;test_score&#39;: array([0.77272727, 0.74025974, 0.74025974, 0.81045752, 0.77777778]),
+ &#39;train_score&#39;: array([0.78338762, 0.76872964, 0.78013029, 0.76910569, 0.78373984])}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">(</span><span class="n">LinearDiscriminantAnalysis</span><span class="p">(),</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">return_estimator</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;fit_time&#39;: array([0.00188208, 0.00185418, 0.00271082, 0.00180984, 0.0021534 ]),
+ &#39;score_time&#39;: array([0.00064898, 0.00049591, 0.00125909, 0.00047708, 0.00051475]),
+ &#39;estimator&#39;: (LinearDiscriminantAnalysis(n_components=None, priors=None, shrinkage=None,
+                             solver=&#39;svd&#39;, store_covariance=False, tol=0.0001),
+  LinearDiscriminantAnalysis(n_components=None, priors=None, shrinkage=None,
+                             solver=&#39;svd&#39;, store_covariance=False, tol=0.0001),
+  LinearDiscriminantAnalysis(n_components=None, priors=None, shrinkage=None,
+                             solver=&#39;svd&#39;, store_covariance=False, tol=0.0001),
+  LinearDiscriminantAnalysis(n_components=None, priors=None, shrinkage=None,
+                             solver=&#39;svd&#39;, store_covariance=False, tol=0.0001),
+  LinearDiscriminantAnalysis(n_components=None, priors=None, shrinkage=None,
+                             solver=&#39;svd&#39;, store_covariance=False, tol=0.0001)),
+ &#39;test_score&#39;: array([0.77272727, 0.74025974, 0.74025974, 0.81045752, 0.77777778])}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So, at this point I've got some comfort around what works, or at least how this works. I'm a little loose on scoring (I should explore and grok that much better).</p>
+<p>Working in this way is worth 10 articles. There is no replacement for experimentation.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_selection</span><span class="o">.</span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">LinearDiscriminantAnalysis</span><span class="p">(),</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([0.77272727, 0.74025974, 0.74025974, 0.81045752, 0.77777778])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>What's nice about cross_val_score is it has mostly the same interface as cross_validate, but it only returns the scoring. If I'm not going to keep the fit time and score time, then I can just ignore that.</p>
+<p>What I'm starting to think is I should normally keep the fit time. I also want a predict time and a develop time. It takes 3 days to build a model, say, and 10 minutes to train it and the resulting model can run in 100 milliseconds. Knowing that, I can spend 5 days building something that trains in 2 hours but returns either better results, or faster results, or some reason to have it.</p>
+<p>These are the values needed in the lab and in production. There are always a lot of metrics flying around, and developing confidence with what they mean and what to do needs to be translated into an experiential flow instead of a reflective stall.</p>
+<p>--</p>
+<p>At this point I'm thinking about abstraction again. What should I use? Do I want kfold?</p>
+<p>It's not as important as I made it.</p>
+<p>Do I want to go to a pandas dataframe?</p>
+<p>Maybe for now, but once I get a better sense of extract X, y, then maybe not so much.</p>
+<p>Why didn't you use tools for splitting the data?</p>
+<p>I think they had the cross validation, that those needed to be static. It makes assumptions about the data too, that they're independently and randomly distributed in the dataset. If I didn't have that, I should have split the data with tools.</p>
+<p>OK, so this is useful:</p>
+<ul>
+<li>abstraction is off, can work better</li>
+<li>grok is off (I'm shooting from the hip)</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Notes:</p>
+<ul>
+<li><a href="https://docs.python.org/3/reference/datamodel.html?emulating-container-types#emulating-container-types">emulating containers</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="get_matches" class="doc_header"><code>get_matches</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L37" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_matches</code>(<strong><code>r</code></strong>, <strong><code>s</code></strong>)</p>
+</blockquote>
+<p>Return all matches, or an empty list.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="get_nth_match" class="doc_header"><code>get_nth_match</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L43" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_nth_match</code>(<strong><code>r</code></strong>, <strong><code>s</code></strong>, <strong><code>n</code></strong>)</p>
+</blockquote>
+<p>Search the string for a regular expression.
+If there is a match, return the nth value(s).</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="get_first_match" class="doc_header"><code>get_first_match</code><a href="https://github.com/your_github_username/lab/tree/master/lab/train/loop.py#L53" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_first_match</code>(<strong><code>r</code></strong>, <strong><code>s</code></strong>)</p>
+</blockquote>
+<p>Shorthand for get_nth_match.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(.+), (.+), and (.+)&#39;</span>
+<span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;a, b, and c&quot;</span>
+<span class="k">assert</span> <span class="n">get_nth_match</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span> <span class="o">==</span> <span class="nb">list</span><span class="p">(</span><span class="s1">&#39;ab&#39;</span><span class="p">)</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;test_(.+)&#39;</span>
+<span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;test_accuracy&#39;</span>
+<span class="k">assert</span> <span class="n">get_matches</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span>
+<span class="k">assert</span> <span class="n">get_first_match</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;accuracy&#39;</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;foo_bar&#39;</span>
+<span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;No match&#39;</span>
+<span class="k">assert</span> <span class="n">get_first_match</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Able to extract keys out of strings, using a regular expression without exposing the internal re quirks.</p>
+<p>If I know what I'm doing, I can use a slice.</p>
+<p>This comes from a <a href="https://stackoverflow.com/questions/15340582/python-extract-pattern-matches">StackOverflow question</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">IncrementVersion</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Increment a version string.</span>
+<span class="sd">    There are packages for this (bumpversion) and</span>
+<span class="sd">    package-management tools, but I thought this</span>
+<span class="sd">    would be easier than it was.&quot;&quot;&quot;</span>
+    
+    <span class="n">DEFAULT_VERSION</span> <span class="o">=</span> <span class="s1">&#39;0.0.0&#39;</span>
+    <span class="n">LEVELS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="s1">&#39;minor&#39;</span><span class="p">,</span> <span class="s1">&#39;patch&#39;</span><span class="p">]</span>
+    <span class="n">DEFAULT_LEVEL</span> <span class="o">=</span> <span class="s1">&#39;patch&#39;</span>
+    <span class="n">ZEROS</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">()(</span><span class="n">version</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">split_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">version</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ZEROS</span>
+        
+    <span class="k">def</span> <span class="nf">get_version_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get a 3-piece version&quot;&quot;&quot;</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_version</span><span class="p">(</span><span class="n">version</span><span class="p">)[:</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ZEROS</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">values</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+    
+    <span class="k">def</span> <span class="nf">increment_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;patch&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Increment the major, minor, or patch.</span>
+<span class="sd">        Pass in the value, if an explicit value is needed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">level</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">LEVELS</span><span class="p">:</span> <span class="n">level</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_LEVEL</span>
+        <span class="n">level_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">LEVELS</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_version_parts</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">parts</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">level_index</span><span class="p">:</span>
+                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="n">level_index</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">value</span> <span class="o">=</span> <span class="n">e</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+                
+        <span class="k">return</span> <span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">increment_version</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">IncrementVersion</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;0.0.1&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;0.0.2&#39;</span>
+<span class="k">assert</span> <span class="n">IncrementVersion</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;0.0.1&#39;</span>
+<span class="k">assert</span> <span class="n">IncrementVersion</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;major&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;1.0.0&#39;</span>
+<span class="k">assert</span> <span class="n">IncrementVersion</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;0.1.1&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;minor&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;0.2.0&#39;</span>
+<span class="k">assert</span> <span class="n">IncrementVersion</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;1.1.1.1&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;flurb&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;1.1.2&#39;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This seems to work, with a missing version, different values, nonsense inputs, too-long inputs...it wasn't worth it writing my own, but there you have it.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Storage</span><span class="p">:</span>
+    <span class="n">TEST_RE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;test_(.+)&#39;</span>
+    <span class="n">DEFAULT_VERSION</span> <span class="o">=</span> <span class="s1">&#39;0.0.1&#39;</span>
+    <span class="n">DEFAULT</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">version</span><span class="o">=</span><span class="n">DEFAULT_VERSION</span><span class="p">,</span>
+        <span class="n">fit_params</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">tests</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">fit_time</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">trained_at</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kw</span> <span class="o">=</span> <span class="n">kw</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">archive</span> <span class="o">=</span> <span class="p">[]</span>
+        
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__length_hint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_retire</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;If it exists, retire the old version of a record.</span>
+<span class="sd">        Return the version of that record.</span>
+<span class="sd">        Otherwise return False.</span>
+<span class="sd">        Either way, this value can be incremented to get a new</span>
+<span class="sd">        version.&quot;&quot;&quot;</span>
+        <span class="n">old</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">old</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">old</span><span class="p">[</span><span class="s1">&#39;model_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">archive</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">old</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">old</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;version&#39;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_get_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retire an old record if it exists and increment the version.&quot;&quot;&quot;</span>
+        <span class="n">old_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_retire</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">IncrementVersion</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">old_version</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_get_default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Merge the best ideas for a default record.&quot;&quot;&quot;</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_version</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">record</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span>
+            <span class="o">**</span><span class="p">{</span><span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="n">version</span><span class="p">},</span>
+            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;trained_at&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">record</span><span class="p">[</span><span class="s1">&#39;trained_at&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">record</span>
+        
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_default</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">get_first_match</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TEST_RE</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">record</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">record</span><span class="p">[</span><span class="s1">&#39;tests&#39;</span><span class="p">][</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">record</span>
+        <span class="k">return</span> <span class="n">record</span>
+    
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_demo_data</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return a simple/reusable dataset (y, X).</span>
+<span class="sd">    TODO: Use a more-generic splitting technique.</span>
+<span class="sd">    TODO: Replace external extraction with internal.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">url</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv&quot;</span>
+    <span class="n">array</span> <span class="o">=</span> <span class="n">values_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">array</span><span class="p">[:,</span><span class="mi">8</span><span class="p">],</span> <span class="n">array</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">get_demo_data</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">767</span><span class="p">,)</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">767</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subject</span> <span class="o">=</span> <span class="n">Storage</span><span class="p">(</span><span class="n">now</span><span class="o">=</span><span class="n">now</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">subject</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">({})</span> <span class="c1"># Basic repr</span>
+<span class="k">assert</span> <span class="n">subject</span><span class="p">[</span><span class="s1">&#39;not_found&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="c1"># Safe/simpler to get</span>
+
+<span class="n">r1</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">(</span><span class="n">LinearDiscriminantAnalysis</span><span class="p">(),</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">subject</span><span class="p">[</span><span class="s1">&#39;LDA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">r1</span>
+<span class="k">assert</span> <span class="n">subject</span><span class="p">[</span><span class="s1">&#39;LDA&#39;</span><span class="p">][</span><span class="s1">&#39;version&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;0.0.1&#39;</span>
+<span class="k">assert</span> <span class="n">subject</span><span class="p">[</span><span class="s1">&#39;LDA&#39;</span><span class="p">][</span><span class="s1">&#39;fit_params&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">Storage</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">[</span><span class="s1">&#39;fit_params&#39;</span><span class="p">]</span>
+<span class="n">lda_tests</span> <span class="o">=</span> <span class="n">subject</span><span class="p">[</span><span class="s1">&#39;LDA&#39;</span><span class="p">][</span><span class="s1">&#39;tests&#39;</span><span class="p">]</span>
+<span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">lda_tests</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
+<span class="k">assert</span> <span class="s1">&#39;trained_at&#39;</span> <span class="ow">in</span> <span class="n">subject</span><span class="p">[</span><span class="s1">&#39;LDA&#39;</span><span class="p">]</span>
+<span class="k">assert</span> <span class="s1">&#39;score_time&#39;</span> <span class="ow">in</span> <span class="n">subject</span><span class="p">[</span><span class="s1">&#39;LDA&#39;</span><span class="p">]</span>
+
+<span class="n">r2_now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">(</span>
+    <span class="n">LinearDiscriminantAnalysis</span><span class="p">(),</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span>
+    <span class="n">scoring</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;f1&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">r2</span><span class="p">[</span><span class="s1">&#39;trained_at&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">r2_now</span>
+<span class="n">subject</span><span class="p">[</span><span class="s1">&#39;LDA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">r2</span>
+<span class="n">archived</span> <span class="o">=</span> <span class="n">subject</span><span class="o">.</span><span class="n">archive</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">assert</span> <span class="n">archived</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;0.0.1&#39;</span>
+<span class="k">assert</span> <span class="n">archived</span><span class="p">[</span><span class="s1">&#39;model_name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;LDA&#39;</span>
+<span class="k">assert</span> <span class="n">subject</span><span class="p">[</span><span class="s1">&#39;LDA&#39;</span><span class="p">][</span><span class="s1">&#39;version&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;0.0.2&#39;</span>
+<span class="k">assert</span> <span class="n">subject</span><span class="p">[</span><span class="s1">&#39;LDA&#39;</span><span class="p">][</span><span class="s1">&#39;trained_at&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">r2_now</span>
+<span class="k">assert</span> <span class="s1">&#39;accuracy&#39;</span> <span class="ow">in</span> <span class="n">subject</span><span class="p">[</span><span class="s1">&#39;LDA&#39;</span><span class="p">][</span><span class="s1">&#39;tests&#39;</span><span class="p">]</span>
+<span class="k">assert</span> <span class="s1">&#39;f1&#39;</span> <span class="ow">in</span> <span class="n">subject</span><span class="p">[</span><span class="s1">&#39;LDA&#39;</span><span class="p">][</span><span class="s1">&#39;tests&#39;</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Storage is kind of cool at this point. It allows me to treat storage like it's a dictionary, meaning it's a cheap replacement for an in-memory tool. It adds some versioning, timestamping, archiving, and basically invents an easy-to-mock interface for storage. Later, this will wrap something like MinIO. That might not be 100% appropriate, but I want to ease into something I can understand/mock/extend.</p>
+<p>From here, I'd like to add some new wraps around the basic processing. Replace what's above with similar below. Specifically:</p>
+<p><strong>Treatments</strong> I want to create some defaults around treatments that just work. This is for baseline models, classification, regression, unsupervised, semi-supervised, NLP, deep learning--all of it. Make it easy to find and pick what's normal in a situation.</p>
+<p><strong>Slips</strong> I want to put more slips in my notebooks. I want to store/find/reuse these as documentation. I'm making a notebook a multi-step production, which slows it down. Let me just drop a <code>#slip</code> comment at the top of a markdown cell and make that searchable. I'll include full references in those cells.</p>
+<p><strong>Evaluation</strong> I want to develop transparency around evaluation. What's common? What can I reuse? Again, I'm dealing with all the kinds of models and analysis here. Not everything applies to everything, but I want to have a quick way of seeing that good work is consistently done, or the most-obvious thing is to do the best practice first. The idea is that I want to train models with my best ideas, learn better ones, and start evaluating in better ways later, coming back to earlier models if I choose to.</p>
+<p><strong>Processing</strong> Make the process just work: subjects and treatments, evaluations and storage. Create a learning loop.</p>
+<p><strong>Storage</strong> Storage isn't quite done yet. Yes, there's the permanent version of this, an object storage, likely in MinIO. Also, there's storing models. Let me move those easily into production once they're trained, evaluated, tuned, and approved-of here. This suggests an interface change, that I was probably naive with what I did above on Storage.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span>        
+        
+<span class="c1"># {&#39;fit_time&#39;: array([0.00210023, 0.00220704, 0.00217891, 0.00219107, 0.00271726]),</span>
+<span class="c1">#  &#39;score_time&#39;: array([0.00784898, 0.00204897, 0.00181198, 0.00148892, 0.00190783]),</span>
+<span class="c1">#  &#39;test_accuracy&#39;: array([0.77272727, 0.74025974, 0.74025974, 0.81045752, 0.77777778]),</span>
+<span class="c1">#  &#39;test_balanced_accuracy&#39;: array([0.72703704, 0.71055556, 0.68074074, 0.77075472, 0.72358491])}</span>
+        
+        
+
+<span class="k">def</span> <span class="nf">k_fold</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Use scikit-learn&#39;s KFold with some control</span>
+<span class="sd">    on reasonable defaults.&quot;&quot;&quot;</span>
+    <span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;n_splits&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}</span>
+    <span class="n">kw</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">defaults</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">KFold</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">process_model</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">storage</span><span class="o">=</span><span class="p">{},</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Process a model using K-Fold cross validation.&quot;&quot;&quot;</span>
+    <span class="n">kfold</span> <span class="o">=</span> <span class="n">k_fold</span><span class="p">()</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">cross_val_score</span><span class="p">(</span>
+        <span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span>
+        <span class="n">cv</span><span class="o">=</span><span class="n">kfold</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">store</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">storage</span><span class="o">=</span><span class="n">storage</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">store</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">storage</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="sd">&quot;&quot;&quot;Simple storage of treatment results.&quot;&quot;&quot;</span>
+    <span class="n">storage</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
+    <span class="k">return</span> <span class="n">storage</span>
+
+<span class="k">def</span> <span class="nf">plot_results</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Algorithm Comparison&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create a box plot for each treatment in a results dictionary.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">plot</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">plot</span> <span class="o">=</span> <span class="n">plt</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plot</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+    <span class="n">plot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">cheap_loop</span><span class="p">(</span><span class="n">treatments</span><span class="p">,</span> <span class="n">subjects</span><span class="p">,</span> <span class="n">display</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create models without hyperparameter fine tuning</span>
+<span class="sd">    to determine which algorithms show promise on a particular</span>
+<span class="sd">    dataset&quot;&quot;&quot;</span>
+    <span class="n">storage</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span> <span class="ow">in</span> <span class="n">treatments</span><span class="p">:</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="n">subjects</span><span class="p">:</span>
+            <span class="n">process_model</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">model</span><span class="p">(),</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">storage</span><span class="o">=</span><span class="n">storage</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">display</span><span class="p">:</span> <span class="n">plot_results</span><span class="p">(</span><span class="n">storage</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">storage</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
 </div>
  
