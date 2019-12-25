@@ -45,6 +45,8 @@ summary: "summary"
 <span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
 
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">model_selection</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
@@ -53,6 +55,8 @@ summary: "summary"
 <span class="kn">from</span> <span class="nn">sklearn.discriminant_analysis</span> <span class="kn">import</span> <span class="n">LinearDiscriminantAnalysis</span>
 <span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
 <span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+
+<span class="kn">from</span> <span class="nn">lab.util.test_functions</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
 
     </div>
@@ -182,13 +186,13 @@ running somewhere, but I'm not sure where it is.</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[ 9.9622511   8.25615328 10.52787943]
-t1: 10.96
-t2: 11.96
-t1: 9.26
-t2: 10.26
-t1: 11.53
-t2: 12.53
+<pre>[10.38436674 10.69162997  8.07552663]
+t1: 11.38
+t2: 12.38
+t1: 11.69
+t2: 12.69
+t1: 9.08
+t2: 10.08
 </pre>
 </div>
 </div>
@@ -206,36 +210,213 @@ t2: 12.53
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The <a href="https://docs.python.org/3/library/hashlib.html">MD5 stuff</a> is kind of cool, but I always forget a step and have to look it up:</p>
+<ul>
+<li>convert input to a string</li>
+<li>build a hashing object (use hashlib's tools)</li>
+<li>update the hashing object with a utf-8-encoded string</li>
+<li>create a hex digest</li>
+</ul>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">content_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">decode</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">certs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Use requests to fetch content from a url&quot;&quot;&quot;</span>
-    <span class="n">kw</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">certs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;certs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">certs</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>
-    <span class="k">if</span> <span class="n">decode</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span> <span class="k">return</span> <span class="n">s</span>
-    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">decode</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">to_md5</span><span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">()</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
 
-<span class="k">def</span> <span class="nf">white_list</span><span class="p">(</span><span class="n">keywords</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">require_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">ObjectStore</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Pass through extract from a set of ordered</span>
+<span class="sd">    stores, or get the data directly.&quot;&quot;&quot;</span>
+    
+    <span class="c1"># TODO: replace with configured values</span>
+    <span class="n">LOCAL_CACHE</span> <span class="o">=</span> <span class="s2">&quot;/Users/davidrichards/.data&quot;</span>
+    
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">)(</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kw</span> <span class="o">=</span> <span class="n">kw</span>
+        
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">local_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a path for the directory where data is cached.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_local_cache&#39;</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_local_cache</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_local_cache</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kw</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;local_cache&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">LOCAL_CACHE</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_local_cache</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">certs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_certs&#39;</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_certs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_certs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kw</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;certs&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_certs</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">allow_raise</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_allow_raise&#39;</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allow_raise</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_allow_raise</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kw</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;allow_raise&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allow_raise</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">re_fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;When true, overwrite the local cache from the remote source.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_re_fetch&#39;</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_re_fetch</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_re_fetch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kw</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;re_fetch&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_re_fetch</span>
+    
+    <span class="k">def</span> <span class="nf">local_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Convert a filename to an MD5 hash and join it</span>
+<span class="sd">        to the local cache.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_cache</span> <span class="o">/</span> <span class="n">to_md5</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">content_from_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Use requests to fetch content from a url&quot;&quot;&quot;</span>
+        <span class="n">kw</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">certs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;certs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">certs</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>
+            <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_raise</span><span class="p">:</span> <span class="k">raise</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        
+    <span class="k">def</span> <span class="nf">get_local_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Read content from the local cache&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">re_fetch</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+            <span class="n">local</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_file</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">local</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_raise</span><span class="p">:</span> <span class="k">raise</span>
+            <span class="k">return</span> <span class="n">false</span>
+        
+    <span class="k">def</span> <span class="nf">get_remote_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Read content from a remote path&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">content_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">local</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">content</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_raise</span><span class="p">:</span> <span class="k">raise</span>
+            <span class="k">return</span> <span class="kc">False</span>
+    
+    <span class="k">def</span> <span class="nf">local_or_remote</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a local version of the data</span>
+<span class="sd">        or get it, save it, and return it.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_local_content</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="ow">or</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_remote_content</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_or_remote</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    
+<span class="k">class</span> <span class="nc">ValuesFromUrl</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Convert CSV content into a 2-d NumPy array.&quot;&quot;&quot;</span>
+    
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">)(</span><span class="n">url</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kw</span> <span class="o">=</span> <span class="n">kw</span>
+
+    <span class="k">def</span> <span class="nf">content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Use ObjectStore to get CSV data.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">ObjectStore</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kw</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Use Pandas to convert CSV to NumPy.&quot;&quot;&quot;</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">(</span><span class="n">content</span><span class="p">))</span><span class="o">.</span><span class="n">values</span>
+    
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subject</span> <span class="o">=</span> <span class="n">ObjectStore</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">ObjectStore</span><span class="p">(</span><span class="n">local_cache</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">local_cache</span> <span class="o">==</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;local&#39;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">subject</span><span class="o">.</span><span class="n">local_cache</span> <span class="o">==</span> <span class="n">Path</span><span class="p">(</span><span class="n">ObjectStore</span><span class="o">.</span><span class="n">LOCAL_CACHE</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">ObjectStore</span><span class="p">(</span><span class="n">certs</span><span class="o">=</span><span class="s1">&#39;certs&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">certs</span> <span class="o">==</span> <span class="s1">&#39;certs&#39;</span>
+<span class="n">root</span> <span class="o">=</span> <span class="n">subject</span><span class="o">.</span><span class="n">local_cache</span>
+<span class="n">expected</span> <span class="o">=</span> <span class="n">root</span><span class="o">/</span><span class="n">to_md5</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">subject</span><span class="o">.</span><span class="n">local_file</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected</span>
+
+<span class="n">invalid_url</span> <span class="o">=</span> <span class="s1">&#39;http://invalid.example.com/some_file&#39;</span>
+<span class="k">assert</span> <span class="ow">not</span> <span class="n">subject</span><span class="o">.</span><span class="n">content_from_url</span><span class="p">(</span><span class="n">invalid_url</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">check_raises</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Can permit raises with `allow_raise=True`.&quot;</span><span class="p">):</span>
+    <span class="n">ObjectStore</span><span class="p">(</span><span class="n">allow_raise</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">content_from_url</span><span class="p">(</span><span class="n">invalid_url</span><span class="p">)</span>
+<span class="k">assert</span> <span class="ow">not</span> <span class="n">ObjectStore</span><span class="p">(</span><span class="n">re_fetch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_raise</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">get_local_content</span><span class="p">(</span><span class="n">invalid_url</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The ObjectStore can get data remotely, with certs. If it does that, it will store it locally. If the content is already stored locally, it returns that instead.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">content_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the content from the ObjectStore&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ObjectStore</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">dataframe_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create a Pandas DataFrame from content.&quot;&quot;&quot;</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">ObjectStore</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">(</span><span class="n">content</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">values_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the NumPy array from url&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ValuesFromUrl</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">white_list</span><span class="p">(</span><span class="n">keywords</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">require_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Filter a dictionary by a set of keys&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">require_keys</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span><span class="n">keywords</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">}</span>
     <span class="k">return</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span><span class="n">keywords</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">}</span>
-
-<span class="k">def</span> <span class="nf">dataframe_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Safely get data, decode it, use certs, and</span>
-<span class="sd">    create a Pandas DataFrame from the content.&quot;&quot;&quot;</span>
-    <span class="n">content</span> <span class="o">=</span> <span class="n">content_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
-    <span class="n">kw</span> <span class="o">=</span> <span class="n">white_list</span><span class="p">(</span><span class="n">kw</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;names&#39;</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">(</span><span class="n">content</span><span class="p">),</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">values_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Safely get values from a dataframe.&quot;&quot;&quot;</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">dataframe_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span>
 
 <span class="k">def</span> <span class="nf">k_fold</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Use scikit-learn&#39;s KFold with some control</span>
@@ -324,7 +505,7 @@ t2: 12.53
 
 
 <div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
+<img src="data:image/png;base64,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
 "
 >
 </div>
@@ -384,12 +565,12 @@ t2: 12.53
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;fit_time&#39;: array([0.00284123, 0.00209188, 0.00207591, 0.002074  , 0.00186324,
-        0.00179315, 0.00176191, 0.00222778, 0.00173807, 0.00225019]),
- &#39;score_time&#39;: array([0.00074077, 0.00052929, 0.00045204, 0.00051403, 0.00042701,
-        0.00041103, 0.00039101, 0.00042534, 0.000386  , 0.00049567]),
- &#39;test_score&#39;: array([0.7012987 , 0.83116883, 0.75324675, 0.67532468, 0.77922078,
-        0.76623377, 0.84415584, 0.81818182, 0.76315789, 0.80263158])}</pre>
+<pre>{&#39;fit_time&#39;: array([0.00308323, 0.00184679, 0.00182605, 0.00170016, 0.00209689,
+        0.0017662 , 0.00167179, 0.00229287, 0.00265718, 0.00182796]),
+ &#39;score_time&#39;: array([0.00064492, 0.00040317, 0.00041509, 0.00038004, 0.00046206,
+        0.0004077 , 0.00040698, 0.00050783, 0.00051999, 0.00042796]),
+ &#39;test_score&#39;: array([0.7012987 , 0.80519481, 0.75324675, 0.68831169, 0.79220779,
+        0.76623377, 0.83116883, 0.84210526, 0.76315789, 0.80263158])}</pre>
 </div>
 
 </div>
@@ -447,9 +628,9 @@ t2: 12.53
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;fit_time&#39;: array([0.00222588, 0.00221896, 0.0016861 , 0.00167203, 0.00145221]),
- &#39;score_time&#39;: array([0.00042915, 0.00046015, 0.00040698, 0.00041199, 0.00033998]),
- &#39;test_score&#39;: array([0.77272727, 0.74025974, 0.74025974, 0.81045752, 0.77777778])}</pre>
+<pre>{&#39;fit_time&#39;: array([0.00247383, 0.00249815, 0.00277209, 0.00238705, 0.00252199]),
+ &#39;score_time&#39;: array([0.00047183, 0.00046802, 0.00083208, 0.00075889, 0.00052023]),
+ &#39;test_score&#39;: array([0.77272727, 0.73376623, 0.74509804, 0.81045752, 0.77124183])}</pre>
 </div>
 
 </div>
@@ -495,9 +676,9 @@ t2: 12.53
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;fit_time&#39;: array([0.00283289, 0.003443  , 0.0022049 , 0.00180292, 0.00163603]),
- &#39;score_time&#39;: array([0.00084019, 0.00051022, 0.0004847 , 0.0004189 , 0.00039029]),
- &#39;test_score&#39;: array([0.77272727, 0.74025974, 0.74025974, 0.81045752, 0.77777778])}</pre>
+<pre>{&#39;fit_time&#39;: array([0.00333309, 0.0019908 , 0.00220585, 0.00217223, 0.00229406]),
+ &#39;score_time&#39;: array([0.00081015, 0.00041294, 0.00048709, 0.00042701, 0.00069714]),
+ &#39;test_score&#39;: array([0.77272727, 0.73376623, 0.74509804, 0.81045752, 0.77124183])}</pre>
 </div>
 
 </div>
@@ -553,9 +734,9 @@ t2: 12.53
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;fit_time&#39;: array([0.0026927 , 0.00238109, 0.00245404, 0.00224495, 0.00217009]),
- &#39;score_time&#39;: array([0.00056028, 0.00041699, 0.00064802, 0.00065184, 0.00063705]),
- &#39;test_score&#39;: array([0.77272727, 0.74025974, 0.74025974, 0.81045752, 0.77777778])}</pre>
+<pre>{&#39;fit_time&#39;: array([0.00331402, 0.00391388, 0.00215793, 0.00291085, 0.00307417]),
+ &#39;score_time&#39;: array([0.00055504, 0.0009594 , 0.00046897, 0.00050426, 0.00046778]),
+ &#39;test_score&#39;: array([0.77272727, 0.73376623, 0.74509804, 0.81045752, 0.77124183])}</pre>
 </div>
 
 </div>
@@ -585,13 +766,13 @@ t2: 12.53
 <pre>[CV]  ................................................................
 [CV] .................................... , score=0.773, total=   0.0s
 [CV]  ................................................................
-[CV] .................................... , score=0.740, total=   0.0s
+[CV] .................................... , score=0.734, total=   0.0s
 [CV]  ................................................................
-[CV] .................................... , score=0.740, total=   0.0s
+[CV] .................................... , score=0.745, total=   0.0s
 [CV]  ................................................................
 [CV] .................................... , score=0.810, total=   0.0s
 [CV]  ................................................................
-[CV] .................................... , score=0.778, total=   0.0s
+[CV] .................................... , score=0.771, total=   0.0s
 </pre>
 </div>
 </div>
@@ -612,9 +793,9 @@ t2: 12.53
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;fit_time&#39;: array([0.00233173, 0.00268102, 0.00242209, 0.00202513, 0.00237703]),
- &#39;score_time&#39;: array([0.00042295, 0.00044489, 0.00042987, 0.00041795, 0.00052691]),
- &#39;test_score&#39;: array([0.77272727, 0.74025974, 0.74025974, 0.81045752, 0.77777778])}</pre>
+<pre>{&#39;fit_time&#39;: array([0.00276995, 0.00290489, 0.00324392, 0.00239801, 0.00201702]),
+ &#39;score_time&#39;: array([0.00046396, 0.00084019, 0.00061107, 0.00056696, 0.00042701]),
+ &#39;test_score&#39;: array([0.77272727, 0.73376623, 0.74509804, 0.81045752, 0.77124183])}</pre>
 </div>
 
 </div>
@@ -650,10 +831,10 @@ t2: 12.53
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;fit_time&#39;: array([0.00182199, 0.00171113, 0.00412798, 0.00208426, 0.00203609]),
- &#39;score_time&#39;: array([0.00042486, 0.0007627 , 0.00122786, 0.00051093, 0.00054097]),
- &#39;test_score&#39;: array([0.77272727, 0.74025974, 0.74025974, 0.81045752, 0.77777778]),
- &#39;train_score&#39;: array([0.78338762, 0.76872964, 0.78013029, 0.76910569, 0.78373984])}</pre>
+<pre>{&#39;fit_time&#39;: array([0.00214195, 0.00171924, 0.0019989 , 0.00174499, 0.00156593]),
+ &#39;score_time&#39;: array([0.00055194, 0.00044179, 0.00041795, 0.00040889, 0.00036311]),
+ &#39;test_score&#39;: array([0.77272727, 0.73376623, 0.74509804, 0.81045752, 0.77124183]),
+ &#39;train_score&#39;: array([0.78303426, 0.76998369, 0.77850163, 0.76872964, 0.78501629])}</pre>
 </div>
 
 </div>
@@ -682,8 +863,8 @@ t2: 12.53
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;fit_time&#39;: array([0.00188208, 0.00185418, 0.00271082, 0.00180984, 0.0021534 ]),
- &#39;score_time&#39;: array([0.00064898, 0.00049591, 0.00125909, 0.00047708, 0.00051475]),
+<pre>{&#39;fit_time&#39;: array([0.00230122, 0.00227618, 0.00205898, 0.00214815, 0.00223589]),
+ &#39;score_time&#39;: array([0.00050592, 0.00054193, 0.00044918, 0.0005641 , 0.00048518]),
  &#39;estimator&#39;: (LinearDiscriminantAnalysis(n_components=None, priors=None, shrinkage=None,
                              solver=&#39;svd&#39;, store_covariance=False, tol=0.0001),
   LinearDiscriminantAnalysis(n_components=None, priors=None, shrinkage=None,
@@ -694,7 +875,7 @@ t2: 12.53
                              solver=&#39;svd&#39;, store_covariance=False, tol=0.0001),
   LinearDiscriminantAnalysis(n_components=None, priors=None, shrinkage=None,
                              solver=&#39;svd&#39;, store_covariance=False, tol=0.0001)),
- &#39;test_score&#39;: array([0.77272727, 0.74025974, 0.74025974, 0.81045752, 0.77777778])}</pre>
+ &#39;test_score&#39;: array([0.77272727, 0.73376623, 0.74509804, 0.81045752, 0.77124183])}</pre>
 </div>
 
 </div>
@@ -731,7 +912,7 @@ t2: 12.53
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>array([0.77272727, 0.74025974, 0.74025974, 0.81045752, 0.77777778])</pre>
+<pre>array([0.77272727, 0.73376623, 0.74509804, 0.81045752, 0.77124183])</pre>
 </div>
 
 </div>
@@ -1040,11 +1221,10 @@ If there is a match, return the nth value(s).</p>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_demo_data</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Return a simple/reusable dataset (y, X).</span>
-<span class="sd">    TODO: Use a more-generic splitting technique.</span>
-<span class="sd">    TODO: Replace external extraction with internal.&quot;&quot;&quot;</span>
+<span class="sd">    TODO: Use a more-generic splitting technique.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">url</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv&quot;</span>
-    <span class="n">array</span> <span class="o">=</span> <span class="n">values_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">array</span> <span class="o">=</span> <span class="n">ValuesFromUrl</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">array</span><span class="p">[:,</span><span class="mi">8</span><span class="p">],</span> <span class="n">array</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span>
 </pre></div>
 
@@ -1073,7 +1253,7 @@ If there is a match, return the nth value(s).</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subject</span> <span class="o">=</span> <span class="n">Storage</span><span class="p">(</span><span class="n">now</span><span class="o">=</span><span class="n">now</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subject</span> <span class="o">=</span> <span class="n">Storage</span><span class="p">()</span>
 <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">subject</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">({})</span> <span class="c1"># Basic repr</span>
 <span class="k">assert</span> <span class="n">subject</span><span class="p">[</span><span class="s1">&#39;not_found&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="c1"># Safe/simpler to get</span>
 
@@ -1082,7 +1262,7 @@ If there is a match, return the nth value(s).</p>
 <span class="k">assert</span> <span class="n">subject</span><span class="p">[</span><span class="s1">&#39;LDA&#39;</span><span class="p">][</span><span class="s1">&#39;version&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;0.0.1&#39;</span>
 <span class="k">assert</span> <span class="n">subject</span><span class="p">[</span><span class="s1">&#39;LDA&#39;</span><span class="p">][</span><span class="s1">&#39;fit_params&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">Storage</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">[</span><span class="s1">&#39;fit_params&#39;</span><span class="p">]</span>
 <span class="n">lda_tests</span> <span class="o">=</span> <span class="n">subject</span><span class="p">[</span><span class="s1">&#39;LDA&#39;</span><span class="p">][</span><span class="s1">&#39;tests&#39;</span><span class="p">]</span>
-<span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">lda_tests</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
+<span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">lda_tests</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">r1</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">])</span>
 <span class="k">assert</span> <span class="s1">&#39;trained_at&#39;</span> <span class="ow">in</span> <span class="n">subject</span><span class="p">[</span><span class="s1">&#39;LDA&#39;</span><span class="p">]</span>
 <span class="k">assert</span> <span class="s1">&#39;score_time&#39;</span> <span class="ow">in</span> <span class="n">subject</span><span class="p">[</span><span class="s1">&#39;LDA&#39;</span><span class="p">]</span>
 
@@ -1120,68 +1300,61 @@ If there is a match, return the nth value(s).</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span>        
-        
-<span class="c1"># {&#39;fit_time&#39;: array([0.00210023, 0.00220704, 0.00217891, 0.00219107, 0.00271726]),</span>
-<span class="c1">#  &#39;score_time&#39;: array([0.00784898, 0.00204897, 0.00181198, 0.00148892, 0.00190783]),</span>
-<span class="c1">#  &#39;test_accuracy&#39;: array([0.77272727, 0.74025974, 0.74025974, 0.81045752, 0.77777778]),</span>
-<span class="c1">#  &#39;test_balanced_accuracy&#39;: array([0.72703704, 0.71055556, 0.68074074, 0.77075472, 0.72358491])}</span>
-        
-        
+<pre><code># {'fit_time': array([0.00210023, 0.00220704, 0.00217891, 0.00219107, 0.00271726]),
+#  'score_time': array([0.00784898, 0.00204897, 0.00181198, 0.00148892, 0.00190783]),
+#  'test_accuracy': array([0.77272727, 0.74025974, 0.74025974, 0.81045752, 0.77777778]),
+#  'test_balanced_accuracy': array([0.72703704, 0.71055556, 0.68074074, 0.77075472, 0.72358491])}
 
-<span class="k">def</span> <span class="nf">k_fold</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Use scikit-learn&#39;s KFold with some control</span>
-<span class="sd">    on reasonable defaults.&quot;&quot;&quot;</span>
-    <span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;n_splits&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}</span>
-    <span class="n">kw</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">defaults</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">}</span>
-    <span class="k">return</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">KFold</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">process_model</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">storage</span><span class="o">=</span><span class="p">{},</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Process a model using K-Fold cross validation.&quot;&quot;&quot;</span>
-    <span class="n">kfold</span> <span class="o">=</span> <span class="n">k_fold</span><span class="p">()</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">cross_val_score</span><span class="p">(</span>
-        <span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span>
-        <span class="n">cv</span><span class="o">=</span><span class="n">kfold</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span>
-    <span class="p">)</span>
-    <span class="k">return</span> <span class="n">store</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">storage</span><span class="o">=</span><span class="n">storage</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">store</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">storage</span><span class="o">=</span><span class="p">{}):</span>
-    <span class="sd">&quot;&quot;&quot;Simple storage of treatment results.&quot;&quot;&quot;</span>
-    <span class="n">storage</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
-    <span class="k">return</span> <span class="n">storage</span>
+def k_fold(**kw):
+    """Use scikit-learn's KFold with some control
+    on reasonable defaults."""
+    defaults = {'n_splits': 10}
+    kw = {**defaults, **kw}
+    return model_selection.KFold(**kw)
 
-<span class="k">def</span> <span class="nf">plot_results</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Algorithm Comparison&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Create a box plot for each treatment in a results dictionary.&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">plot</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">plot</span> <span class="o">=</span> <span class="n">plt</span>
+def process_model(name, model, X, Y, storage={}, scoring='accuracy', **kw):
+    """Process a model using K-Fold cross validation."""
+    kfold = k_fold()
+    result = model_selection.cross_val_score(
+        model, X, Y,
+        cv=kfold, scoring=scoring
+    )
+    return store(name, result, storage=storage)
 
-    <span class="n">fig</span> <span class="o">=</span> <span class="n">plot</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
-    <span class="n">plot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+def store(name, result, storage={}):
+    """Simple storage of treatment results."""
+    storage[name] = result
+    return storage
 
-<span class="k">def</span> <span class="nf">cheap_loop</span><span class="p">(</span><span class="n">treatments</span><span class="p">,</span> <span class="n">subjects</span><span class="p">,</span> <span class="n">display</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Create models without hyperparameter fine tuning</span>
-<span class="sd">    to determine which algorithms show promise on a particular</span>
-<span class="sd">    dataset&quot;&quot;&quot;</span>
-    <span class="n">storage</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span> <span class="ow">in</span> <span class="n">treatments</span><span class="p">:</span>
-        <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="n">subjects</span><span class="p">:</span>
-            <span class="n">process_model</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">model</span><span class="p">(),</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">storage</span><span class="o">=</span><span class="n">storage</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">display</span><span class="p">:</span> <span class="n">plot_results</span><span class="p">(</span><span class="n">storage</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">storage</span>
-</pre></div>
+def plot_results(results, plot=None, title='Algorithm Comparison', **kw):
+    """Create a box plot for each treatment in a results dictionary."""
+    if plot is None: plot = plt
 
-    </div>
+    fig = plot.figure()
+    fig.suptitle(title)
+    ax = fig.add_subplot(111)
+    plt.boxplot(list(results.values()))
+    ax.set_xticklabels(list(results.keys()))
+    plot.show()
+
+def cheap_loop(treatments, subjects, display=True, **kw):
+    """Create models without hyperparameter fine tuning
+    to determine which algorithms show promise on a particular
+    dataset"""
+    storage = {}
+    for (name, model) in treatments:
+        for (x, y) in subjects:
+            process_model(name, model(), x, y, storage=storage)
+    if display: plot_results(storage, **kw)
+    return storage</code></pre>
+
 </div>
 </div>
-
 </div>
 </div>
  
