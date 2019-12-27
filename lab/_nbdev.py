@@ -21,12 +21,33 @@ index = {"foo": "00_core.ipynb",
          "train_loop": "03_loop.ipynb",
          "get_matches": "03_loop.ipynb",
          "get_nth_match": "03_loop.ipynb",
-         "get_first_match": "03_loop.ipynb"}
+         "get_first_match": "03_loop.ipynb",
+         "get_config": "04_object_store.ipynb",
+         "white_list": "05_local_object_store.ipynb",
+         "merge_config": "05_local_object_store.ipynb",
+         "WHITE_LIST_CONFIG": "05_local_object_store.ipynb",
+         "root": "05_local_object_store.ipynb",
+         "name": "05_local_object_store.ipynb",
+         "bucket_filter": "05_local_object_store.ipynb",
+         "ROOT": "05_local_object_store.ipynb",
+         "list_paths": "05_local_object_store.ipynb",
+         "list_buckets": "05_local_object_store.ipynb",
+         "get_slice": "05_local_object_store.ipynb",
+         "first_path": "05_local_object_store.ipynb",
+         "first_bucket": "05_local_object_store.ipynb",
+         "exists": "05_local_object_store.ipynb",
+         "is_empty": "05_local_object_store.ipynb",
+         "can_remove_bucket": "05_local_object_store.ipynb",
+         "full_path": "05_local_object_store.ipynb",
+         "find_or_create_bucket": "05_local_object_store.ipynb",
+         "remove_bucket": "05_local_object_store.ipynb"}
 
 modules = ["core.py",
            "simulate/distribution.py",
            "util/test_functions.py",
-           "train/loop.py"]
+           "train/loop.py",
+           "train/object_store.py",
+           "train/local_object_store.py"]
 
 git_url = "https://github.com/your_github_username/lab/tree/master/"
 
