@@ -54,7 +54,7 @@ def name(**kw):
 def bucket_filter(**kw):
     kw = merge_config(**kw)
     o = kw.get('name', kw.get('filter', ''))
-    if isinstance(o, re.Pattern): return o
+    if _is_re(o): return o
     return re.compile(f".*{o}.*")
 
 # Cell

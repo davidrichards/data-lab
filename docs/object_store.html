@@ -86,9 +86,13 @@ summary: "summary"
 <span class="k">def</span> <span class="nf">root</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">kw</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="n">ROOT</span><span class="p">))</span>
 
+<span class="k">def</span> <span class="nf">_is_re</span><span class="p">(</span><span class="n">o</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;In 3.6.9, the type is different.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="s1">&#39;pattern&#39;</span><span class="p">)</span>
+
 <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
     <span class="n">o</span> <span class="o">=</span> <span class="n">kw</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">kw</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;filter&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">_is_re</span><span class="p">(</span><span class="n">o</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">o</span><span class="o">.</span><span class="n">pattern</span>
     <span class="k">if</span> <span class="n">o</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">o</span>
@@ -96,7 +100,7 @@ summary: "summary"
 
 <span class="k">def</span> <span class="nf">storage_filter</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
     <span class="n">o</span> <span class="o">=</span> <span class="n">kw</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;filter&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">):</span> <span class="k">return</span> <span class="n">o</span>
+    <span class="k">if</span> <span class="n">_is_re</span><span class="p">(</span><span class="n">o</span><span class="p">):</span> <span class="k">return</span> <span class="n">o</span>
     <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;.*</span><span class="si">{o}</span><span class="s2">.*&quot;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">list_buckets</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
@@ -162,7 +166,7 @@ summary: "summary"
     <span class="k">def</span> <span class="nf">_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;__name&#39;</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span>
         <span class="n">o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kw</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;filter&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">_is_re</span><span class="p">(</span><span class="n">o</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__name</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">pattern</span>
         <span class="k">elif</span> <span class="n">o</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__name</span> <span class="o">=</span> <span class="n">o</span>
@@ -175,7 +179,7 @@ summary: "summary"
         <span class="sd">&quot;&quot;&quot;Filter for whatever operation, bucket-level, object level.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;__filter&#39;</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bucket_filter</span>
         <span class="n">o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kw</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;filter&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">_is_re</span><span class="p">(</span><span class="n">o</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__filter</span> <span class="o">=</span> <span class="n">o</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__filter</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;.*</span><span class="si">{o}</span><span class="s2">.*&quot;</span><span class="p">)</span>
@@ -253,7 +257,7 @@ summary: "summary"
 <span class="n">s</span> <span class="o">=</span> <span class="n">LocalObjectStore</span><span class="p">(</span><span class="nb">filter</span><span class="o">=</span><span class="s1">&#39;power&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">base</span><span class="p">)</span>
 <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">root</span> <span class="o">==</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/tmp&#39;</span><span class="p">)</span>
 
-<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">_filter</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">_is_re</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">_filter</span><span class="p">)</span>
 <span class="n">matching</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;power&#39;</span><span class="p">,</span> <span class="s1">&#39;this_power_that&#39;</span><span class="p">,</span> <span class="s1">&#39;this_power&#39;</span><span class="p">,</span> <span class="s1">&#39;power_that&#39;</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matching</span><span class="p">:</span>
     <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">_filter</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">match</span><span class="p">)</span>
@@ -296,59 +300,6 @@ summary: "summary"
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">FileNotFoundError</span>                         Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-166-9661a3adcb49&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>shutil<span class="ansi-blue-fg">.</span>rmtree<span class="ansi-blue-fg">(</span>path<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/shutil.py</span> in <span class="ansi-cyan-fg">rmtree</span><span class="ansi-blue-fg">(path, ignore_errors, onerror)</span>
-<span class="ansi-green-intense-fg ansi-bold">    728</span>             <span class="ansi-red-fg"># can&#39;t continue even if onerror hook returns</span>
-<span class="ansi-green-intense-fg ansi-bold">    729</span>             <span class="ansi-green-fg">return</span>
-<span class="ansi-green-fg">--&gt; 730</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> _rmtree_unsafe<span class="ansi-blue-fg">(</span>path<span class="ansi-blue-fg">,</span> onerror<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    731</span> 
-<span class="ansi-green-intense-fg ansi-bold">    732</span> <span class="ansi-red-fg"># Allow introspection of whether or not the hardening against symlink</span>
-
-<span class="ansi-green-fg">/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/shutil.py</span> in <span class="ansi-cyan-fg">_rmtree_unsafe</span><span class="ansi-blue-fg">(path, onerror)</span>
-<span class="ansi-green-intense-fg ansi-bold">    587</span>             entries <span class="ansi-blue-fg">=</span> list<span class="ansi-blue-fg">(</span>scandir_it<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    588</span>     <span class="ansi-green-fg">except</span> OSError<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 589</span><span class="ansi-red-fg">         </span>onerror<span class="ansi-blue-fg">(</span>os<span class="ansi-blue-fg">.</span>scandir<span class="ansi-blue-fg">,</span> path<span class="ansi-blue-fg">,</span> sys<span class="ansi-blue-fg">.</span>exc_info<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    590</span>         entries <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">    591</span>     <span class="ansi-green-fg">for</span> entry <span class="ansi-green-fg">in</span> entries<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/shutil.py</span> in <span class="ansi-cyan-fg">_rmtree_unsafe</span><span class="ansi-blue-fg">(path, onerror)</span>
-<span class="ansi-green-intense-fg ansi-bold">    584</span> <span class="ansi-green-fg">def</span> _rmtree_unsafe<span class="ansi-blue-fg">(</span>path<span class="ansi-blue-fg">,</span> onerror<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    585</span>     <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 586</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">with</span> os<span class="ansi-blue-fg">.</span>scandir<span class="ansi-blue-fg">(</span>path<span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">as</span> scandir_it<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    587</span>             entries <span class="ansi-blue-fg">=</span> list<span class="ansi-blue-fg">(</span>scandir_it<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    588</span>     <span class="ansi-green-fg">except</span> OSError<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-red-fg">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;/tmp/bar&#39;</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
