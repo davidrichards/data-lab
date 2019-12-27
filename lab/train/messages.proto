@@ -1,0 +1,29 @@
+syntax = "proto2";
+
+// Version 0.1.0
+/* Create basic messages:
+
+  * subject
+  * treatment
+  * model
+  * evaluation
+  * expectation
+  * invocation
+
+*/
+
+package train;
+
+message Evaluation {
+  required string name = 1;
+  repeated float values = 2;
+}
+
+message Model {
+  required string name = 1;
+  optional string description = 2;
+  optional string version = 3 [default = "0.0.1"];
+
+  repeated Evaluation evaluations = 4;
+}
+

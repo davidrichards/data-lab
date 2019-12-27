@@ -23,7 +23,7 @@ summary: "summary"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Objects">Objects<a class="anchor-link" href="#Objects">&#182;</a></h1><p>Using Protocol Buffer to setup the types of objects I need:</p>
+<h1 id="Messages">Messages<a class="anchor-link" href="#Messages">&#182;</a></h1><p>Using Protocol Buffer to setup the types of objects I need:</p>
 <ul>
 <li>subject</li>
 <li>treatment</li>
@@ -51,15 +51,450 @@ summary: "summary"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">lab.util.test_functions</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="c1"># from pathlib import Path</span>
-<span class="c1"># import pathlib</span>
-<span class="c1"># import re</span>
-<span class="c1"># import shutil</span>
-<span class="c1"># import os</span>
+<span class="kn">import</span> <span class="nn">google.protobuf</span>
+<span class="kn">import</span> <span class="nn">lab.train.messages_pb2</span> <span class="k">as</span> <span class="nn">messages_pb2</span>
+<span class="kn">import</span> <span class="nn">zlib</span>
+<span class="kn">import</span> <span class="nn">binascii</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">MessageBuilder</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Create Protocol Buffer messages from Python</span>
+<span class="sd">    data types.&quot;&quot;&quot;</span>
+    
+    <span class="n">DEFAULT_MESSAGE_CLASS</span> <span class="o">=</span> <span class="n">messages_pb2</span><span class="o">.</span><span class="n">Model</span>
+    <span class="n">MESSAGE_TYPE</span> <span class="o">=</span> <span class="n">google</span><span class="o">.</span><span class="n">protobuf</span><span class="o">.</span><span class="n">pyext</span><span class="o">.</span><span class="n">cpp_message</span><span class="o">.</span><span class="n">GeneratedProtocolMessageType</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kw</span> <span class="o">=</span> <span class="n">kw</span>
+        
+    <span class="k">def</span> <span class="nf">_class_from_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+        <span class="c1"># TODO: Add recursion, e.g. Model.Evaluation</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">messages_pb2</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_class_from_object</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">messages_pb2</span><span class="p">,</span> <span class="n">o</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MESSAGE_TYPE</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">o</span>
+        
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_message_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;__message_class&#39;</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__message_class</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kw</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;kind&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_MESSAGE_CLASS</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__message_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_class_from_object</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__message_class</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">instance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_instance&#39;</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_instance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message_class</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_instance</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;__fields&#39;</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fields</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__fields</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_message_class</span><span class="o">.</span><span class="n">DESCRIPTOR</span><span class="o">.</span><span class="n">fields_by_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fields</span>
+            
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="c1"># TODO: add recursion and type checking.</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span><span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fields</span><span class="p">}</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message_class</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="c1"># Something is wrong...just ignore it for now...</span>
+            <span class="k">pass</span>
+        
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    
+<span class="n">model_builder</span> <span class="o">=</span> <span class="n">MessageBuilder</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span><span class="p">)</span>
+<span class="n">evaluation_builder</span> <span class="o">=</span> <span class="n">MessageBuilder</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;Evaluation&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">MessageBuilder</span><span class="p">()</span><span class="o">.</span><span class="n">_message_class</span> <span class="o">==</span> <span class="n">MessageBuilder</span><span class="o">.</span><span class="n">DEFAULT_MESSAGE_CLASS</span>
+<span class="k">assert</span> <span class="n">MessageBuilder</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="n">messages_pb2</span><span class="o">.</span><span class="n">Model</span><span class="p">)</span><span class="o">.</span><span class="n">_message_class</span> <span class="o">==</span> <span class="n">messages_pb2</span><span class="o">.</span><span class="n">Model</span>
+<span class="k">assert</span> <span class="n">MessageBuilder</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">_message_class</span> <span class="o">==</span> <span class="n">messages_pb2</span><span class="o">.</span><span class="n">Model</span>
+<span class="k">assert</span> <span class="n">MessageBuilder</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="n">messages_pb2</span><span class="o">.</span><span class="n">Evaluation</span><span class="p">)</span><span class="o">.</span><span class="n">_message_class</span> <span class="o">==</span> <span class="n">messages_pb2</span><span class="o">.</span><span class="n">Evaluation</span>
+<span class="k">assert</span> <span class="n">MessageBuilder</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;Evaluation&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">_message_class</span> <span class="o">==</span> <span class="n">messages_pb2</span><span class="o">.</span><span class="n">Evaluation</span>
+
+<span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas commodo sem id mi fringilla volutpat. Etiam sed massa sapien. Curabitur elementum, quam id feugiat tristique, tellus mauris pretium sem, sit amet congue elit lectus non dolor. Suspendisse imperdiet lectus at est posuere, vel suscipit arcu rhoncus. Integer ultricies laoreet erat eu laoreet. Pellentesque nec metus scelerisque, dignissim quam ut, suscipit magna. Sed nec purus ut felis eleifend volutpat.</span>
+
+<span class="s2">Mauris consectetur metus a finibus pellentesque. Nunc eleifend tempus mollis. Nullam eget interdum enim. Sed nunc lorem, elementum vel pretium in, luctus eu turpis. In hac habitasse platea dictumst. Curabitur tincidunt placerat est, eu imperdiet enim cursus laoreet. Nam placerat varius lacus, at laoreet felis facilisis ut. Vestibulum vitae eros ante. Vestibulum mattis sem ut lacus posuere, at tincidunt augue imperdiet. Nulla congue erat vitae suscipit ultrices. Maecenas gravida egestas magna eget condimentum. Morbi vitae varius magna. Pellentesque ut diam magna. Etiam justo nibh, aliquet eget finibus at, finibus ac quam. Sed nec porta justo, ac aliquet sem. Donec sit amet elit lobortis, volutpat sapien eget, ullamcorper erat.</span>
+
+<span class="s2">Nullam eu quam porttitor, rhoncus dolor id, rhoncus nulla. Morbi et elementum nunc. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed imperdiet nulla nunc, vel sollicitudin libero dapibus sed. Curabitur ultrices ante at gravida rhoncus. Nunc quis ante convallis, dapibus mi sit amet, efficitur ex. Ut magna est, egestas sit amet scelerisque sit amet, finibus a lectus. Sed vitae dignissim leo. Sed laoreet ante et sem convallis auctor. Morbi sodales ut magna ultrices sodales. Integer luctus blandit nunc. Sed a dapibus massa. Suspendisse rhoncus erat lacus, quis facilisis dui ornare dignissim. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur purus ante, vulputate at justo in, egestas egestas ante. Duis vitae est rutrum, luctus erat eget, luctus enim.</span>
+
+<span class="s2">Aliquam eu neque nisl. Ut egestas, dui nec posuere sagittis, justo massa gravida velit, a pulvinar urna turpis in elit. Integer ex orci, scelerisque non felis quis, ornare aliquet quam. Fusce at metus at risus auctor interdum a eget ante. Aenean congue, risus ac rutrum gravida, leo tellus ullamcorper nisi, quis aliquet justo orci ut ex. Morbi sagittis augue ac dui posuere, quis vestibulum dui finibus. Nam elementum ex non diam sollicitudin, sit amet finibus velit convallis. Vivamus viverra, ipsum quis cursus tempor, neque erat tincidunt elit, a tempor dolor enim quis nibh. Morbi vestibulum massa sed tempus hendrerit. Quisque aliquet metus feugiat, pellentesque nisl id, rutrum quam. Nulla sit amet dapibus ipsum. Morbi ut lorem aliquam, lacinia tortor vitae, luctus mauris. Maecenas vehicula elementum justo gravida luctus. Maecenas suscipit pellentesque nisi ut rutrum. Praesent a convallis quam.</span>
+
+<span class="s2">Donec at nisi eros. Vestibulum sed libero vitae nunc posuere aliquet. Aliquam erat volutpat. Sed lorem felis, sagittis et pulvinar id, posuere sed arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae dolor vulputate, iaculis velit fermentum, posuere ante. Aenean erat nisl, feugiat ac interdum sed, fringilla vitae purus. Curabitur pulvinar aliquam dui, eget suscipit augue volutpat id. Nullam auctor mollis mi, vel sodales erat scelerisque vel. Aliquam bibendum purus eu feugiat hendrerit. Pellentesque id ultrices ante. Nullam non mauris a nibh finibus commodo. Fusce vel purus vitae tortor vestibulum scelerisque sed eu erat. In hac habitasse platea dictumst. Ut feugiat magna nunc, eget tempor sapien commodo nec. Donec tincidunt augue at leo scelerisque euismod.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span> <span class="n">foo</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">model_builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">description</span> <span class="o">==</span> <span class="n">description</span>
+<span class="k">assert</span> <span class="n">model_builder</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">evaluations</span><span class="o">=</span><span class="p">[{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;values&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]}])</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">model_builder</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">evaluations</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">message</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="n">kind</span><span class="p">()</span>
+    <span class="n">message</span><span class="o">.</span><span class="n">ParseFromString</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">message</span>
+
+<span class="n">DEFAULT_COMPRESSION</span> <span class="o">=</span> <span class="n">zlib</span><span class="o">.</span><span class="n">Z_BEST_COMPRESSION</span>
+<span class="n">COMPRESSION_LEVELS</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">best_speed</span><span class="o">=</span><span class="n">zlib</span><span class="o">.</span><span class="n">Z_BEST_SPEED</span><span class="p">,</span>
+    <span class="n">best_compression</span><span class="o">=</span><span class="n">zlib</span><span class="o">.</span><span class="n">Z_BEST_COMPRESSION</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="n">zlib</span><span class="o">.</span><span class="n">Z_DEFAULT_COMPRESSION</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">compress_message</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">DEFAULT_COMPRESSION</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span> <span class="n">level</span> <span class="o">=</span> <span class="n">COMPRESSION_LEVELS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">DEFAULT_COMPRESSION</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">serialize</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">zlib</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">decompress_message</span><span class="p">(</span><span class="n">compressed</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
+    <span class="n">decompressed</span> <span class="o">=</span> <span class="n">zlib</span><span class="o">.</span><span class="n">decompress</span><span class="p">(</span><span class="n">compressed</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">deserialize</span><span class="p">(</span><span class="n">decompressed</span><span class="p">,</span> <span class="n">kind</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">message</span> <span class="o">=</span> <span class="n">model_builder</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">message</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>name: &#34;bar&#34;
+evaluations {
+  name: &#34;accuracy&#34;
+  values: 1.0
+  values: 2.0
+  values: 3.0
+  values: 4.0
+}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">serialize</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>b&#39;\n\x03bar&#34;\x1e\n\x08accuracy\x15\x00\x00\x80?\x15\x00\x00\x00@\x15\x00\x00@@\x15\x00\x00\x80@&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compress_message</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>b&#39;x\xda\xe3bNJ,R\x92\xe3\xe2HLN.-JL\xae\x14e`h\xb0\x07\x12\x0c\x0e@\xc2\x01D48\x00\x00\x9d\x1b\x07s&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compress_message</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;nonsense&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>b&#39;x\xda\xe3bNJ,R\x92\xe3\xe2HLN.-JL\xae\x14e`h\xb0\x07\x12\x0c\x0e@\xc2\x01D48\x00\x00\x9d\x1b\x07s&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">compress_message</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+<span class="n">decompress_message</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">messages_pb2</span><span class="o">.</span><span class="n">Model</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>name: &#34;bar&#34;
+evaluations {
+  name: &#34;accuracy&#34;
+  values: 1.0
+  values: 2.0
+  values: 3.0
+  values: 4.0
+}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_builder</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;Foo&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">version</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;0.0.1&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">built</span> <span class="o">=</span><span class="n">decompres_message</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">messages_pb2</span><span class="o">.</span><span class="n">Model</span><span class="p">)</span>
+<span class="n">built</span><span class="o">.</span><span class="n">version</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;0.0.1&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_builder</span><span class="o">.</span><span class="n">_fields</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;name&#39;: &lt;google.protobuf.pyext._message.FieldDescriptor at 0x11d7e9580&gt;,
+ &#39;description&#39;: &lt;google.protobuf.pyext._message.FieldDescriptor at 0x11d7e9ee0&gt;,
+ &#39;version&#39;: &lt;google.protobuf.pyext._message.FieldDescriptor at 0x11d7e91c0&gt;,
+ &#39;evaluations&#39;: &lt;google.protobuf.pyext._message.FieldDescriptor at 0x11d7e9fa0&gt;}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">{</span><span class="n">k</span><span class="p">:</span><span class="nb">getattr</span><span class="p">(</span><span class="n">built</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">model_builder</span><span class="o">.</span><span class="n">_fields</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;name&#39;: &#39;bar&#39;,
+ &#39;description&#39;: &#39;&#39;,
+ &#39;version&#39;: &#39;0.0.1&#39;,
+ &#39;evaluations&#39;: [name: &#34;accuracy&#34;
+ values: 1.0
+ values: 2.0
+ values: 3.0
+ values: 4.0
+ ]}</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
