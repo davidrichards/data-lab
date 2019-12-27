@@ -38,10 +38,14 @@ def root(**kw):
     kw = merge_config(**kw)
     return Path(kw.get('root', ROOT))
 
+def _is_re(o):
+    """In 3.6.9, the type is different."""
+    return hasattr(o, 'match') and hasattr(o, 'pattern')
+
 def name(**kw):
     kw = merge_config(**kw)
     o = kw.get('name', kw.get('filter', None))
-    if isinstance(o, re.Pattern):
+    if _is_re(o):
         return o.pattern
     if o is None or isinstance(o, str):
         return o
