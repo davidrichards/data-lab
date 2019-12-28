@@ -14,10 +14,14 @@ syntax = "proto2";
 
 package train;
 
-message Evaluation {
+message Subject {
   required string name = 1;
-  repeated float values = 2;
 }
+
+message Treatment {
+  required string name = 1;
+}
+
 
 message Model {
   required string name = 1;
@@ -26,4 +30,18 @@ message Model {
 
   repeated Evaluation evaluations = 4;
 }
+
+message Evaluation {
+  required string name = 1;
+  repeated float values = 2;
+}
+
+message Expectation {
+  required string name = 1;
+}
+
+message Invocation {
+  required string name = 1;
+}
+
 

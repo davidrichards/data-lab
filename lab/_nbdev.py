@@ -40,14 +40,30 @@ index = {"foo": "00_core.ipynb",
          "can_remove_bucket": "05_local_object_store.ipynb",
          "full_path": "05_local_object_store.ipynb",
          "find_or_create_bucket": "05_local_object_store.ipynb",
-         "remove_bucket": "05_local_object_store.ipynb"}
+         "remove_bucket": "05_local_object_store.ipynb",
+         "serialize": "06_messages.ipynb",
+         "kind_to_class": "06_messages.ipynb",
+         "deserialize": "06_messages.ipynb",
+         "compress": "06_messages.ipynb",
+         "decompress": "06_messages.ipynb",
+         "to_dict": "06_messages.ipynb",
+         "DEFAULT_COMPRESSION": "06_messages.ipynb",
+         "COMPRESSION_LEVELS": "06_messages.ipynb",
+         "MessageBuilder": "06_messages.ipynb",
+         "subject_builder": "06_messages.ipynb",
+         "treatment_builder": "06_messages.ipynb",
+         "model_builder": "06_messages.ipynb",
+         "evaluation_builder": "06_messages.ipynb",
+         "expectation_builder": "06_messages.ipynb",
+         "invocation_builder": "06_messages.ipynb"}
 
 modules = ["core.py",
            "simulate/distribution.py",
            "util/test_functions.py",
            "train/loop.py",
            "train/object_store.py",
-           "train/local_object_store.py"]
+           "train/local_object_store.py",
+           "train/message.py"]
 
 git_url = "https://github.com/your_github_username/lab/tree/master/"
 
