@@ -3,6 +3,9 @@
 __all__ = ['foo']
 
 # Cell
+from .imports import *
+
+# Cell
 
 def foo():
     return 'bar'

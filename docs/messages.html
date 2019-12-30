@@ -22,6 +22,9 @@ summary: "summary"
 <div class="cell border-box-sizing code_cell rendered">
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Message">Message<a class="anchor-link" href="#Message">&#182;</a></h1><p>Using Protocol Buffer to setup the types of objects I need:</p>
@@ -51,9 +54,6 @@ summary: "summary"
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
 <div class="output_wrapper">
 <div class="output">
 
@@ -61,7 +61,7 @@ summary: "summary"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="serialize" class="doc_header"><code>serialize</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/message.py#L13" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>serialize</code>(<strong><code>message</code></strong>)</p>
+<h4 id="serialize" class="doc_header"><code>serialize</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/message.py#L11" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>serialize</code>(<strong><code>message</code></strong>)</p>
 </blockquote>
 <p>Convert a message to a binary string.</p>
 
@@ -82,7 +82,7 @@ summary: "summary"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="kind_to_class" class="doc_header"><code>kind_to_class</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/message.py#L17" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>kind_to_class</code>(<strong><code>kind</code></strong>, <strong><code>parent</code></strong>=<em><code>'lab.prototypes.training_pb2'</code></em>)</p>
+<h4 id="kind_to_class" class="doc_header"><code>kind_to_class</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/message.py#L15" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>kind_to_class</code>(<strong><code>kind</code></strong>, <strong><code>parent</code></strong>=<em><code>'lab.prototypes.training_pb2'</code></em>)</p>
 </blockquote>
 <p>Find a Message class by reference.
 Allows a recursive search for a message class.
@@ -105,7 +105,7 @@ The message I used to test this no longer exists.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="deserialize" class="doc_header"><code>deserialize</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/message.py#L31" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>deserialize</code>(<strong><code>s</code></strong>, <strong><code>kind</code></strong>)</p>
+<h4 id="deserialize" class="doc_header"><code>deserialize</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/message.py#L29" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>deserialize</code>(<strong><code>s</code></strong>, <strong><code>kind</code></strong>)</p>
 </blockquote>
 <p>Deserialize a string as a kind of message.</p>
 
@@ -126,7 +126,7 @@ The message I used to test this no longer exists.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="compress" class="doc_header"><code>compress</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/message.py#L46" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>compress</code>(<strong><code>message</code></strong>, <strong><code>level</code></strong>=<em><code>9</code></em>)</p>
+<h4 id="compress" class="doc_header"><code>compress</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/message.py#L44" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>compress</code>(<strong><code>message</code></strong>, <strong><code>level</code></strong>=<em><code>9</code></em>)</p>
 </blockquote>
 <p>Compress a message.</p>
 
@@ -147,7 +147,7 @@ The message I used to test this no longer exists.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="decompress" class="doc_header"><code>decompress</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/message.py#L52" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>decompress</code>(<strong><code>compressed</code></strong>, <strong><code>kind</code></strong>)</p>
+<h4 id="decompress" class="doc_header"><code>decompress</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/message.py#L50" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>decompress</code>(<strong><code>compressed</code></strong>, <strong><code>kind</code></strong>)</p>
 </blockquote>
 <p>Decompress a compressed message, given the kind of message.</p>
 
@@ -168,7 +168,7 @@ The message I used to test this no longer exists.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="to_dict" class="doc_header"><code>to_dict</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/message.py#L59" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>to_dict</code>(<strong><code>message</code></strong>)</p>
+<h4 id="to_dict" class="doc_header"><code>to_dict</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/message.py#L57" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>to_dict</code>(<strong><code>message</code></strong>)</p>
 </blockquote>
 <p>Create a dictionary from a message, including all defaults.</p>
 
@@ -185,8 +185,8 @@ The message I used to test this no longer exists.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">kind_to_class</span><span class="p">(</span><span class="n">prototypes</span><span class="o">.</span><span class="n">Subject</span><span class="p">)</span> <span class="o">==</span> <span class="n">prototypes</span><span class="o">.</span><span class="n">Subject</span>
-<span class="k">assert</span> <span class="n">kind_to_class</span><span class="p">(</span><span class="s1">&#39;Subject&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">prototypes</span><span class="o">.</span><span class="n">Subject</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">kind_to_class</span><span class="p">(</span><span class="n">training_prototypes</span><span class="o">.</span><span class="n">Subject</span><span class="p">)</span> <span class="o">==</span> <span class="n">training_prototypes</span><span class="o">.</span><span class="n">Subject</span>
+<span class="k">assert</span> <span class="n">kind_to_class</span><span class="p">(</span><span class="s1">&#39;Subject&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">training_prototypes</span><span class="o">.</span><span class="n">Subject</span>
 </pre></div>
 
     </div>
@@ -206,7 +206,7 @@ The message I used to test this no longer exists.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="MessageBuilder" class="doc_header"><code>class</code> <code>MessageBuilder</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/message.py#L65" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>MessageBuilder</code>(<strong>**<code>kw</code></strong>)</p>
+<h2 id="MessageBuilder" class="doc_header"><code>class</code> <code>MessageBuilder</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/message.py#L63" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>MessageBuilder</code>(<strong>**<code>kw</code></strong>)</p>
 </blockquote>
 <p>Create Protocol Buffer messages from Python
 data types.</p>
@@ -228,7 +228,7 @@ data types.</p>
 <span class="n">message</span> <span class="o">=</span> <span class="n">model_builder</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
 <span class="n">serialized</span> <span class="o">=</span> <span class="n">serialize</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 <span class="n">compressed</span> <span class="o">=</span> <span class="n">compress</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-<span class="n">decompressed</span> <span class="o">=</span> <span class="n">decompress</span><span class="p">(</span><span class="n">compressed</span><span class="p">,</span> <span class="n">prototypes</span><span class="o">.</span><span class="n">Model</span><span class="p">)</span>
+<span class="n">decompressed</span> <span class="o">=</span> <span class="n">decompress</span><span class="p">(</span><span class="n">compressed</span><span class="p">,</span> <span class="n">training_prototypes</span><span class="o">.</span><span class="n">Model</span><span class="p">)</span>
 <span class="k">assert</span> <span class="n">decompressed</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;bar&#39;</span>
 <span class="k">assert</span> <span class="n">decompressed</span><span class="o">.</span><span class="n">evaluations</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;accuracy&#39;</span>
 <span class="k">assert</span> <span class="s1">&#39;version&#39;</span> <span class="ow">in</span> <span class="n">to_dict</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
@@ -252,10 +252,10 @@ data types.</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">MessageBuilder</span><span class="p">()</span><span class="o">.</span><span class="n">_message_class</span> <span class="o">==</span> <span class="n">MessageBuilder</span><span class="o">.</span><span class="n">DEFAULT_MESSAGE_CLASS</span>
-<span class="k">assert</span> <span class="n">MessageBuilder</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="n">prototypes</span><span class="o">.</span><span class="n">Model</span><span class="p">)</span><span class="o">.</span><span class="n">_message_class</span> <span class="o">==</span> <span class="n">prototypes</span><span class="o">.</span><span class="n">Model</span>
-<span class="k">assert</span> <span class="n">MessageBuilder</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">_message_class</span> <span class="o">==</span> <span class="n">prototypes</span><span class="o">.</span><span class="n">Model</span>
-<span class="k">assert</span> <span class="n">MessageBuilder</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="n">prototypes</span><span class="o">.</span><span class="n">Evaluation</span><span class="p">)</span><span class="o">.</span><span class="n">_message_class</span> <span class="o">==</span> <span class="n">prototypes</span><span class="o">.</span><span class="n">Evaluation</span>
-<span class="k">assert</span> <span class="n">MessageBuilder</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;Evaluation&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">_message_class</span> <span class="o">==</span> <span class="n">prototypes</span><span class="o">.</span><span class="n">Evaluation</span>
+<span class="k">assert</span> <span class="n">MessageBuilder</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="n">training_prototypes</span><span class="o">.</span><span class="n">Model</span><span class="p">)</span><span class="o">.</span><span class="n">_message_class</span> <span class="o">==</span> <span class="n">training_prototypes</span><span class="o">.</span><span class="n">Model</span>
+<span class="k">assert</span> <span class="n">MessageBuilder</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">_message_class</span> <span class="o">==</span> <span class="n">training_prototypes</span><span class="o">.</span><span class="n">Model</span>
+<span class="k">assert</span> <span class="n">MessageBuilder</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="n">training_prototypes</span><span class="o">.</span><span class="n">Evaluation</span><span class="p">)</span><span class="o">.</span><span class="n">_message_class</span> <span class="o">==</span> <span class="n">training_prototypes</span><span class="o">.</span><span class="n">Evaluation</span>
+<span class="k">assert</span> <span class="n">MessageBuilder</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;Evaluation&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">_message_class</span> <span class="o">==</span> <span class="n">training_prototypes</span><span class="o">.</span><span class="n">Evaluation</span>
 
 <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas commodo sem id mi fringilla volutpat. Etiam sed massa sapien. Curabitur elementum, quam id feugiat tristique, tellus mauris pretium sem, sit amet congue elit lectus non dolor. Suspendisse imperdiet lectus at est posuere, vel suscipit arcu rhoncus. Integer ultricies laoreet erat eu laoreet. Pellentesque nec metus scelerisque, dignissim quam ut, suscipit magna. Sed nec purus ut felis eleifend volutpat.</span>

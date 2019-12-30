@@ -5,16 +5,14 @@ __all__ = ['serialize', 'kind_to_class', 'deserialize', 'compress', 'decompress'
            'evaluation_builder', 'expectation_builder', 'invocation_builder']
 
 # Cell
-import google.protobuf
-import lab.prototypes.training_pb2 as prototypes
-import zlib
+from ..imports import *
 
 # Cell
 def serialize(message):
     """Convert a message to a binary string."""
     return message.SerializeToString()
 
-def kind_to_class(kind, parent=prototypes):
+def kind_to_class(kind, parent=training_prototypes):
     """Find a Message class by reference.
     Allows a recursive search for a message class.
     The message I used to test this no longer exists."""
@@ -66,7 +64,7 @@ class MessageBuilder:
     """Create Protocol Buffer messages from Python
     data types."""
 
-    DEFAULT_MESSAGE_CLASS = prototypes.Model
+    DEFAULT_MESSAGE_CLASS = training_prototypes.Model
 
     def __init__(self, **kw):
         self.kw = kw
