@@ -4,6 +4,9 @@ __all__ = ['artifact_storage', 'generic_runner', 'runner', 'train_loop', 'get_ma
            'get_first_match']
 
 # Cell
+from ..imports import *
+
+# Cell
 def artifact_storage(*a, **kw):
     """Infer how the user intends to store
     artifacts: models, versions, treatments,

@@ -22,31 +22,15 @@ summary: "summary"
 <div class="cell border-box-sizing code_cell rendered">
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Local-Object-Store">Local Object Store<a class="anchor-link" href="#Local-Object-Store">&#182;</a></h1><p>Namespace for these functions. I'm trying a functional approach instead of wrapping everything in a one-type-use class.</p>
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">lab.util.test_functions</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">import</span> <span class="nn">pathlib</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">shutil</span>
-<span class="kn">import</span> <span class="nn">os</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 
@@ -60,7 +44,7 @@ summary: "summary"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="white_list" class="doc_header"><code>white_list</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L11" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>white_list</code>(<strong><code>keywords</code></strong>, <strong><code>keys</code></strong>, <strong><code>require_keys</code></strong>=<em><code>False</code></em>, <strong><code>expand_missing</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="white_list" class="doc_header"><code>white_list</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L13" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>white_list</code>(<strong><code>keywords</code></strong>, <strong><code>keys</code></strong>, <strong><code>require_keys</code></strong>=<em><code>False</code></em>, <strong><code>expand_missing</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Filter a dictionary by a set of keys</p>
 
@@ -81,7 +65,7 @@ summary: "summary"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="merge_config" class="doc_header"><code>merge_config</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L22" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>merge_config</code>(<strong>**<code>kw</code></strong>)</p>
+<h4 id="merge_config" class="doc_header"><code>merge_config</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L24" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>merge_config</code>(<strong>**<code>kw</code></strong>)</p>
 </blockquote>
 <p>Get the local environemnt variables, convert the keys
 to lower case, merge new keywords over the environment
@@ -96,6 +80,17 @@ but possibly I'll do this for everything.</p>
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="TODO:">TODO:<a class="anchor-link" href="#TODO:">&#182;</a></h1><ul>
+<li>Move the above into imports</li>
+<li>Get the nbdev approach to config merged with this</li>
+<li>Create a consistent set of configuration expectations (keys that work with local, minio, some of the ops)</li>
+</ul>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -140,7 +135,7 @@ but possibly I'll do this for everything.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="root" class="doc_header"><code>root</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L37" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>root</code>(<strong>**<code>kw</code></strong>)</p>
+<h4 id="root" class="doc_header"><code>root</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L39" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>root</code>(<strong>**<code>kw</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -160,7 +155,7 @@ but possibly I'll do this for everything.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="name" class="doc_header"><code>name</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L45" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>name</code>(<strong>**<code>kw</code></strong>)</p>
+<h4 id="name" class="doc_header"><code>name</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L47" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>name</code>(<strong>**<code>kw</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -180,7 +175,7 @@ but possibly I'll do this for everything.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="bucket_filter" class="doc_header"><code>bucket_filter</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L54" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>bucket_filter</code>(<strong>**<code>kw</code></strong>)</p>
+<h4 id="bucket_filter" class="doc_header"><code>bucket_filter</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L56" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>bucket_filter</code>(<strong>**<code>kw</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -241,7 +236,7 @@ but possibly I'll do this for everything.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="list_paths" class="doc_header"><code>list_paths</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L62" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>list_paths</code>(<strong>**<code>kw</code></strong>)</p>
+<h4 id="list_buckets" class="doc_header"><code>list_buckets</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L69" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>list_buckets</code>(<strong>**<code>kw</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -261,7 +256,7 @@ but possibly I'll do this for everything.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="list_buckets" class="doc_header"><code>list_buckets</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L67" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>list_buckets</code>(<strong>**<code>kw</code></strong>)</p>
+<h4 id="find_or_create_bucket" class="doc_header"><code>find_or_create_bucket</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L99" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>find_or_create_bucket</code>(<strong>**<code>kw</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -281,7 +276,7 @@ but possibly I'll do this for everything.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_slice" class="doc_header"><code>get_slice</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L70" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_slice</code>(<strong><code>seq</code></strong>, <strong><code>key</code></strong>, <strong><code>default</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="remove_bucket" class="doc_header"><code>remove_bucket</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L104" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>remove_bucket</code>(<strong>**<code>kw</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -292,165 +287,38 @@ but possibly I'll do this for everything.</p>
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Interface">Interface<a class="anchor-link" href="#Interface">&#182;</a></h1><p>Anything not in the interface gets an underscore prefix. This is because this file is meant to be used as a namespace:</p>
 
-<div class="output_wrapper">
-<div class="output">
+<pre><code>import lab.train.local_object_store as object_store
+object_store.list_buckets()
 
-<div class="output_area">
+</code></pre>
+<p>Then, when I get my config and MinIO where I want it:</p>
 
+<pre><code>import lab.train.minio_object_store as object_store
+object_store.list_buckets()
 
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="first_path" class="doc_header"><code>first_path</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L74" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>first_path</code>(<strong>**<code>kw</code></strong>)</p>
-</blockquote>
+</code></pre>
+<p>Now I've got a remote and sharable object store that can version my work the way I've wanted to use it. If I'm working on a model, or I've dispatched a model to be trained, the object store will be updated when the work is ready.</p>
+<p>The interface is:</p>
 
-</div>
+<pre><code>list_buckets
+find_or_create_bucket
+remove_bucket
+find_items
+put
+get
+get_stats
+copy
+remove
 
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="first_bucket" class="doc_header"><code>first_bucket</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L77" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>first_bucket</code>(<strong>**<code>kw</code></strong>)</p>
-</blockquote>
-
-</div>
-
-</div>
+</code></pre>
+<p>I'm working out in here what the signature is for everything.</p>
 
 </div>
 </div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="exists" class="doc_header"><code>exists</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L80" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>exists</code>(<strong>**<code>kw</code></strong>)</p>
-</blockquote>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="is_empty" class="doc_header"><code>is_empty</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L84" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>is_empty</code>(<strong>**<code>kw</code></strong>)</p>
-</blockquote>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="can_remove_bucket" class="doc_header"><code>can_remove_bucket</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L88" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>can_remove_bucket</code>(<strong>**<code>kw</code></strong>)</p>
-</blockquote>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="full_path" class="doc_header"><code>full_path</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L94" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>full_path</code>(<strong>**<code>kw</code></strong>)</p>
-</blockquote>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="find_or_create_bucket" class="doc_header"><code>find_or_create_bucket</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L97" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>find_or_create_bucket</code>(<strong>**<code>kw</code></strong>)</p>
-</blockquote>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="remove_bucket" class="doc_header"><code>remove_bucket</code><a href="https://github.com/davidrichards/lab/tree/master/lab/train/local_object_store.py#L102" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>remove_bucket</code>(<strong>**<code>kw</code></strong>)</p>
-</blockquote>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -460,17 +328,17 @@ but possibly I'll do this for everything.</p>
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">list_buckets</span><span class="p">(),</span> <span class="nb">list</span><span class="p">)</span>
 
 <span class="n">remove_bucket</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;junk&#39;</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">full_path</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;junk&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">Path</span><span class="p">(</span><span class="n">ROOT</span><span class="p">)</span><span class="o">/</span><span class="s1">&#39;junk&#39;</span>
-<span class="k">assert</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;junk&#39;</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">first_bucket</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;junk&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
-<span class="k">assert</span> <span class="n">first_path</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;junk&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="k">assert</span> <span class="n">_full_path</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;junk&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">Path</span><span class="p">(</span><span class="n">ROOT</span><span class="p">)</span><span class="o">/</span><span class="s1">&#39;junk&#39;</span>
+<span class="k">assert</span> <span class="ow">not</span> <span class="n">_exists</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;junk&#39;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">_first_bucket</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;junk&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="k">assert</span> <span class="n">_first_path</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;junk&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
 <span class="k">assert</span> <span class="n">list_buckets</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;junk&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="p">[]</span>
-<span class="k">assert</span> <span class="n">can_remove_bucket</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;junk&#39;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">_can_remove_bucket</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;junk&#39;</span><span class="p">)</span>
 
 <span class="n">find_or_create_bucket</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;junk&#39;</span><span class="p">)</span>
 
 <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_buckets</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;junk&#39;</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span>
-<span class="k">assert</span> <span class="n">is_empty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;junk&#39;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">_is_empty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;junk&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
