@@ -65,6 +65,6 @@ modules = ["core.py",
            "train/local_object_store.py",
            "train/message.py"]
 
-git_url = "https://github.com/your_github_username/lab/tree/master/"
+git_url = "https://github.com/davidrichards/lab/tree/master/"
 
 def custom_doc_links(name): return None
