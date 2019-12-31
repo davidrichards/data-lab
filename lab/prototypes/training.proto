@@ -14,8 +14,43 @@ syntax = "proto2";
 
 package train;
 
+message Tag {
+  required string name = 1;
+}
+
+message Person {
+  required string name = 1;
+  optional string url = 2;
+  repeated Tag tags = 3;
+}
+
+message Date {
+  required int32 year = 1;
+  optional int32 month = 2;
+  optional int32 day = 3;
+}
+
+message Version {
+  required int32 major = 1 [default = 0];
+  required int32 minor = 2 [default = 0];
+  required int32 patch = 3 [default = 1];
+}
+
+// TODO: Use enums for type and size.
 message Subject {
   required string name = 1;
+  optional string type = 2 [default = "supervised"];
+  optional string size = 3 [default = "medium"];
+  optional string short_description=4;
+  optional string description=5;
+  optional string preprocessing=6;
+  optional int32 instances=7;
+  optional string format=8;
+  optional Date created_on = 9;
+  optional string url=10;
+  optional Version version = 11;
+  repeated Person contributors = 12;
+  repeated Tag tags = 13;
 }
 
 message Treatment {

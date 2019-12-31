@@ -18,21 +18,21 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='train',
   syntax='proto2',
   serialized_options=None,
-  serialized_pb=b'\n\x0etraining.proto\x12\x05train\"\x17\n\x07Subject\x12\x0c\n\x04name\x18\x01 \x02(\t\"\x19\n\tTreatment\x12\x0c\n\x04name\x18\x01 \x02(\t\"j\n\x05Model\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x16\n\x07version\x18\x03 \x01(\t:\x05\x30.0.1\x12&\n\x0b\x65valuations\x18\x04 \x03(\x0b\x32\x11.train.Evaluation\"*\n\nEvaluation\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\x0e\n\x06values\x18\x02 \x03(\x02\"\x1b\n\x0b\x45xpectation\x12\x0c\n\x04name\x18\x01 \x02(\t\"\x1a\n\nInvocation\x12\x0c\n\x04name\x18\x01 \x02(\t'
+  serialized_pb=b'\n\x0etraining.proto\x12\x05train\"\x13\n\x03Tag\x12\x0c\n\x04name\x18\x01 \x02(\t\"=\n\x06Person\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\x0b\n\x03url\x18\x02 \x01(\t\x12\x18\n\x04tags\x18\x03 \x03(\x0b\x32\n.train.Tag\"0\n\x04\x44\x61te\x12\x0c\n\x04year\x18\x01 \x02(\x05\x12\r\n\x05month\x18\x02 \x01(\x05\x12\x0b\n\x03\x64\x61y\x18\x03 \x01(\x05\"?\n\x07Version\x12\x10\n\x05major\x18\x01 \x02(\x05:\x01\x30\x12\x10\n\x05minor\x18\x02 \x02(\x05:\x01\x30\x12\x10\n\x05patch\x18\x03 \x02(\x05:\x01\x31\"\xbf\x02\n\x07Subject\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\x18\n\x04type\x18\x02 \x01(\t:\nsupervised\x12\x14\n\x04size\x18\x03 \x01(\t:\x06medium\x12\x19\n\x11short_description\x18\x04 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x05 \x01(\t\x12\x15\n\rpreprocessing\x18\x06 \x01(\t\x12\x11\n\tinstances\x18\x07 \x01(\x05\x12\x0e\n\x06\x66ormat\x18\x08 \x01(\t\x12\x1f\n\ncreated_on\x18\t \x01(\x0b\x32\x0b.train.Date\x12\x0b\n\x03url\x18\n \x01(\t\x12\x1f\n\x07version\x18\x0b \x01(\x0b\x32\x0e.train.Version\x12#\n\x0c\x63ontributors\x18\x0c \x03(\x0b\x32\r.train.Person\x12\x18\n\x04tags\x18\r \x03(\x0b\x32\n.train.Tag\"\x19\n\tTreatment\x12\x0c\n\x04name\x18\x01 \x02(\t\"j\n\x05Model\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x16\n\x07version\x18\x03 \x01(\t:\x05\x30.0.1\x12&\n\x0b\x65valuations\x18\x04 \x03(\x0b\x32\x11.train.Evaluation\"*\n\nEvaluation\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\x0e\n\x06values\x18\x02 \x03(\x02\"\x1b\n\x0b\x45xpectation\x12\x0c\n\x04name\x18\x01 \x02(\t\"\x1a\n\nInvocation\x12\x0c\n\x04name\x18\x01 \x02(\t'
 )
 
 
 
 
-_SUBJECT = _descriptor.Descriptor(
-  name='Subject',
-  full_name='train.Subject',
+_TAG = _descriptor.Descriptor(
+  name='Tag',
+  full_name='train.Tag',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='name', full_name='train.Subject.name', index=0,
+      name='name', full_name='train.Tag.name', index=0,
       number=1, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -51,7 +51,257 @@ _SUBJECT = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=25,
-  serialized_end=48,
+  serialized_end=44,
+)
+
+
+_PERSON = _descriptor.Descriptor(
+  name='Person',
+  full_name='train.Person',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='train.Person.name', index=0,
+      number=1, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='url', full_name='train.Person.url', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='tags', full_name='train.Person.tags', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=46,
+  serialized_end=107,
+)
+
+
+_DATE = _descriptor.Descriptor(
+  name='Date',
+  full_name='train.Date',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='year', full_name='train.Date.year', index=0,
+      number=1, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='month', full_name='train.Date.month', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='day', full_name='train.Date.day', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=109,
+  serialized_end=157,
+)
+
+
+_VERSION = _descriptor.Descriptor(
+  name='Version',
+  full_name='train.Version',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='major', full_name='train.Version.major', index=0,
+      number=1, type=5, cpp_type=1, label=2,
+      has_default_value=True, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='minor', full_name='train.Version.minor', index=1,
+      number=2, type=5, cpp_type=1, label=2,
+      has_default_value=True, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='patch', full_name='train.Version.patch', index=2,
+      number=3, type=5, cpp_type=1, label=2,
+      has_default_value=True, default_value=1,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=159,
+  serialized_end=222,
+)
+
+
+_SUBJECT = _descriptor.Descriptor(
+  name='Subject',
+  full_name='train.Subject',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='train.Subject.name', index=0,
+      number=1, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='type', full_name='train.Subject.type', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=True, default_value=b"supervised".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='size', full_name='train.Subject.size', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=True, default_value=b"medium".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='short_description', full_name='train.Subject.short_description', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='description', full_name='train.Subject.description', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='preprocessing', full_name='train.Subject.preprocessing', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='instances', full_name='train.Subject.instances', index=6,
+      number=7, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='format', full_name='train.Subject.format', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='created_on', full_name='train.Subject.created_on', index=8,
+      number=9, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='url', full_name='train.Subject.url', index=9,
+      number=10, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='version', full_name='train.Subject.version', index=10,
+      number=11, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='contributors', full_name='train.Subject.contributors', index=11,
+      number=12, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='tags', full_name='train.Subject.tags', index=12,
+      number=13, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=225,
+  serialized_end=544,
 )
 
 
@@ -81,8 +331,8 @@ _TREATMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=50,
-  serialized_end=75,
+  serialized_start=546,
+  serialized_end=571,
 )
 
 
@@ -133,8 +383,8 @@ _MODEL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=77,
-  serialized_end=183,
+  serialized_start=573,
+  serialized_end=679,
 )
 
 
@@ -171,8 +421,8 @@ _EVALUATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=185,
-  serialized_end=227,
+  serialized_start=681,
+  serialized_end=723,
 )
 
 
@@ -202,8 +452,8 @@ _EXPECTATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=229,
-  serialized_end=256,
+  serialized_start=725,
+  serialized_end=752,
 )
 
 
@@ -233,11 +483,20 @@ _INVOCATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=258,
-  serialized_end=284,
+  serialized_start=754,
+  serialized_end=780,
 )
 
+_PERSON.fields_by_name['tags'].message_type = _TAG
+_SUBJECT.fields_by_name['created_on'].message_type = _DATE
+_SUBJECT.fields_by_name['version'].message_type = _VERSION
+_SUBJECT.fields_by_name['contributors'].message_type = _PERSON
+_SUBJECT.fields_by_name['tags'].message_type = _TAG
 _MODEL.fields_by_name['evaluations'].message_type = _EVALUATION
+DESCRIPTOR.message_types_by_name['Tag'] = _TAG
+DESCRIPTOR.message_types_by_name['Person'] = _PERSON
+DESCRIPTOR.message_types_by_name['Date'] = _DATE
+DESCRIPTOR.message_types_by_name['Version'] = _VERSION
 DESCRIPTOR.message_types_by_name['Subject'] = _SUBJECT
 DESCRIPTOR.message_types_by_name['Treatment'] = _TREATMENT
 DESCRIPTOR.message_types_by_name['Model'] = _MODEL
@@ -245,6 +504,34 @@ DESCRIPTOR.message_types_by_name['Evaluation'] = _EVALUATION
 DESCRIPTOR.message_types_by_name['Expectation'] = _EXPECTATION
 DESCRIPTOR.message_types_by_name['Invocation'] = _INVOCATION
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+Tag = _reflection.GeneratedProtocolMessageType('Tag', (_message.Message,), {
+  'DESCRIPTOR' : _TAG,
+  '__module__' : 'training_pb2'
+  # @@protoc_insertion_point(class_scope:train.Tag)
+  })
+_sym_db.RegisterMessage(Tag)
+
+Person = _reflection.GeneratedProtocolMessageType('Person', (_message.Message,), {
+  'DESCRIPTOR' : _PERSON,
+  '__module__' : 'training_pb2'
+  # @@protoc_insertion_point(class_scope:train.Person)
+  })
+_sym_db.RegisterMessage(Person)
+
+Date = _reflection.GeneratedProtocolMessageType('Date', (_message.Message,), {
+  'DESCRIPTOR' : _DATE,
+  '__module__' : 'training_pb2'
+  # @@protoc_insertion_point(class_scope:train.Date)
+  })
+_sym_db.RegisterMessage(Date)
+
+Version = _reflection.GeneratedProtocolMessageType('Version', (_message.Message,), {
+  'DESCRIPTOR' : _VERSION,
+  '__module__' : 'training_pb2'
+  # @@protoc_insertion_point(class_scope:train.Version)
+  })
+_sym_db.RegisterMessage(Version)
 
 Subject = _reflection.GeneratedProtocolMessageType('Subject', (_message.Message,), {
   'DESCRIPTOR' : _SUBJECT,
