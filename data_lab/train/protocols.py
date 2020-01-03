@@ -5,7 +5,7 @@ __all__ = ['serialize', 'deserialize', 'compress', 'decompress', 'to_dict', 'DEF
            'expectation_builder', 'invocation_builder']
 
 # Cell
-from ..imports import *
+from lab.imports import *
 
 # Cell
 def serialize(message):

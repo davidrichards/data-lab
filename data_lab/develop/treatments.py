@@ -3,7 +3,7 @@
 __all__ = ['store', 'start', 'revise']
 
 # Cell
-from ..imports import *
+from lab.imports import *
 import getpass
 
 # Cell

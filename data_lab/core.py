@@ -3,7 +3,7 @@
 __all__ = ['foo']
 
 # Cell
-from .imports import *
+from lab.imports import *
 
 # Cell
 
