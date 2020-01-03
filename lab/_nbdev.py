@@ -56,6 +56,8 @@ modules = ["core.py",
            "develop/treatments.py",
            "train/protocols.py"]
 
+doc_url = "https://davidrichards.github.io/lab/"
+
 git_url = "https://github.com/davidrichards/lab/tree/master/"
 
 def custom_doc_links(name): return None

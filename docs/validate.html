@@ -139,7 +139,7 @@ object. (<code>np.array(o)</code>).</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The <a href="validate.html#is_traditional_distribution"><code>is_traditional_distribution</code></a> looks for whether this is something from <code>scipy.stats</code> (meaning, it has an <code>rvs</code> method).</p>
+<p>The <a href="/lab/validate#is_traditional_distribution"><code>is_traditional_distribution</code></a> looks for whether this is something from <code>scipy.stats</code> (meaning, it has an <code>rvs</code> method).</p>
 
 </div>
 </div>
@@ -159,8 +159,8 @@ object. (<code>np.array(o)</code>).</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Extract-Values">Extract Values<a class="anchor-link" href="#Extract-Values">&#182;</a></h2><p>I like having top-level functions that hide the details of underlying code. The <a href="validate.html#extract_values"><code>extract_values</code></a> function will see if it can create random values from an <code>rvs</code> method. If it can't do that, it will call a function. If not, it will ensure the object is a NumPy array.</p>
-<p>Also, there's a shortcut that suggests <a href="validate.html#DEFAULT_VALIDATION_SIZE"><code>DEFAULT_VALIDATION_SIZE</code></a> is a good sample size with <a href="validate.html#extract_test_values"><code>extract_test_values</code></a>.</p>
+<h2 id="Extract-Values">Extract Values<a class="anchor-link" href="#Extract-Values">&#182;</a></h2><p>I like having top-level functions that hide the details of underlying code. The <a href="/lab/validate#extract_values"><code>extract_values</code></a> function will see if it can create random values from an <code>rvs</code> method. If it can't do that, it will call a function. If not, it will ensure the object is a NumPy array.</p>
+<p>Also, there's a shortcut that suggests <a href="/lab/validate#DEFAULT_VALIDATION_SIZE"><code>DEFAULT_VALIDATION_SIZE</code></a> is a good sample size with <a href="/lab/validate#extract_test_values"><code>extract_test_values</code></a>.</p>
 
 </div>
 </div>
