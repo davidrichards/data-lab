@@ -12,6 +12,7 @@ import google.protobuf
 import numpy as np
 
 import lab.prototypes.training_pb2 as training_prototypes
+import lab.object_store.noop as noop_object_store
 
 @contextmanager
 def check_raises(**kw):
