@@ -3,9 +3,9 @@
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"foo": "00_core.ipynb",
-         "list_buckets": "03_local_object_store.ipynb",
-         "find_or_create_bucket": "03_local_object_store.ipynb",
-         "remove_bucket": "03_local_object_store.ipynb",
+         "list_buckets": "01.01.local.ipynb",
+         "find_or_create_bucket": "01.01.local.ipynb",
+         "remove_bucket": "01.01.local.ipynb",
          "find_items": "01.01.local.ipynb",
          "put": "01.01.local.ipynb",
          "get": "01.01.local.ipynb",
@@ -46,19 +46,7 @@ index = {"foo": "00_core.ipynb",
          "model_builder": "02_protocols.ipynb",
          "evaluation_builder": "02_protocols.ipynb",
          "expectation_builder": "02_protocols.ipynb",
-         "invocation_builder": "02_protocols.ipynb",
-         "white_list": "03_local_object_store.ipynb",
-         "merge_config": "03_local_object_store.ipynb",
-         "WHITE_LIST_CONFIG": "03_local_object_store.ipynb",
-         "ROOT": "03_local_object_store.ipynb",
-         "get_config": "05_object_store.ipynb",
-         "artifact_storage": "06_learn.ipynb",
-         "generic_runner": "06_learn.ipynb",
-         "runner": "06_learn.ipynb",
-         "train_loop": "06_learn.ipynb",
-         "get_matches": "06_learn.ipynb",
-         "get_nth_match": "06_learn.ipynb",
-         "get_first_match": "06_learn.ipynb"}
+         "invocation_builder": "02_protocols.ipynb"}
 
 modules = ["core.py",
            "object_store/noop.py",
@@ -66,11 +54,7 @@ modules = ["core.py",
            "simulate/distribution.py",
            "develop/utils.py",
            "develop/treatments.py",
-           "train/protocols.py",
-           "train/local_object_store.py",
-           "train/minio_object_store.py",
-           "train/object_store.py",
-           "train/loop.py"]
+           "train/protocols.py"]
 
 git_url = "https://github.com/davidrichards/lab/tree/master/"
 
