@@ -24,6 +24,7 @@ requirements = cfg.get('requirements','').split()
 lic = licenses[cfg['license']]
 min_python = cfg['min_python']
 
+# note: hard coded lib_name...because underscore/dash
 setuptools.setup(
     name = cfg['lib_name'],
     license = lic[0],
@@ -33,7 +34,7 @@ setuptools.setup(
         'License :: ' + lic[1],
         'Natural Language :: ' + cfg['language'].title(),
     ] + ['Programming Language :: Python :: '+o for o in py_versions[py_versions.index(min_python):]],
-    url = 'https://github.com/{}/{}'.format(cfg['user'],cfg['lib_name']),
+    url = 'https://github.com/{}/data_lab'.format(cfg['user']),
     packages = setuptools.find_packages(),
     include_package_data = True,
     install_requires = requirements,
