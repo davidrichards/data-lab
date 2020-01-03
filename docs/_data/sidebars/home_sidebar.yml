@@ -10,11 +10,11 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: Lab
+      title: Core
       url: /core
     - output: web,pdf
       title: Title
-      url: /test_functions
+      url: /protocols
     output: web
     title: lab
   output: web
