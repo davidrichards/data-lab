@@ -4,7 +4,6 @@ __all__ = ['store', 'start', 'revise']
 
 # Cell
 from ..imports import *
-import .utils as utils
 import getpass
 
 # Cell
