@@ -49,7 +49,7 @@ summary: "summary"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="listify" class="doc_header"><code>listify</code><a href="https://github.com/davidrichards/data-lab/tree/master/data_lab/develop/utils.py#L14" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>listify</code>(<strong><code>o</code></strong>)</p>
+<h4 id="listify" class="doc_header"><code>listify</code><a href="https://github.com/davidrichards/data_lab/tree/master/data_lab/develop/utils.py#L15" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>listify</code>(<strong><code>o</code></strong>)</p>
 </blockquote>
 <p>Create lists from objects</p>
 
@@ -107,7 +107,7 @@ summary: "summary"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="FormatValidation" class="doc_header"><code>class</code> <code>FormatValidation</code><a href="https://github.com/davidrichards/data-lab/tree/master/data_lab/develop/utils.py#L44" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FormatValidation</code>(<strong><code>steps</code></strong>, <strong>**<code>kw</code></strong>)</p>
+<h2 id="FormatValidation" class="doc_header"><code>class</code> <code>FormatValidation</code><a href="https://github.com/davidrichards/data_lab/tree/master/data_lab/develop/utils.py#L45" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FormatValidation</code>(<strong><code>steps</code></strong>, <strong>**<code>kw</code></strong>)</p>
 </blockquote>
 <p>convert a list of steps into a more-reasonable string explanation
 of what took place.</p>
@@ -129,7 +129,7 @@ of what took place.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="format_validation" class="doc_header"><code>format_validation</code><a href="https://github.com/davidrichards/data-lab/tree/master/data_lab/develop/utils.py#L150" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>format_validation</code>(<strong><code>steps</code></strong>, <strong>**<code>kw</code></strong>)</p>
+<h4 id="format_validation" class="doc_header"><code>format_validation</code><a href="https://github.com/davidrichards/data_lab/tree/master/data_lab/develop/utils.py#L151" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>format_validation</code>(<strong><code>steps</code></strong>, <strong>**<code>kw</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -188,7 +188,85 @@ of what took place.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="ValidateCode" class="doc_header"><code>class</code> <code>ValidateCode</code><a href="https://github.com/davidrichards/data-lab/tree/master/data_lab/develop/utils.py#L154" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ValidateCode</code>(<strong>**<code>kw</code></strong>)</p>
+<h4 id="find_package" class="doc_header"><code>find_package</code><a href="https://github.com/davidrichards/data_lab/tree/master/data_lab/develop/utils.py#L154" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>find_package</code>(<strong><code>package</code></strong>, <strong><code>parent</code></strong>=<em><code>None</code></em>)</p>
+</blockquote>
+<p>Find a package through imports.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="find_code" class="doc_header"><code>find_code</code><a href="https://github.com/davidrichards/data_lab/tree/master/data_lab/develop/utils.py#L176" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>find_code</code>(<strong><code>name</code></strong>, <strong><code>package</code></strong>=<em><code>None</code></em>)</p>
+</blockquote>
+<p>Use text descriptions to find executable code.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">find_package</span><span class="p">(</span><span class="s2">&quot;not a package&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="k">assert</span> <span class="n">find_package</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s2">&quot;parent&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">None</span>
+<span class="k">assert</span> <span class="n">find_package</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="k">assert</span> <span class="n">find_package</span><span class="p">(</span><span class="s1">&#39;math&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">math</span>
+<span class="k">assert</span> <span class="n">find_package</span><span class="p">(</span><span class="s1">&#39;matplotlib.pyplot&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">plt</span>
+<span class="k">assert</span> <span class="n">find_package</span><span class="p">(</span><span class="s1">&#39;matplotlib.pyplot.not_a_thing&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="k">assert</span> <span class="n">find_package</span><span class="p">(</span><span class="n">plt</span><span class="p">)</span> <span class="o">==</span> <span class="n">plt</span>
+
+<span class="n">foo</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="mi">42</span>
+<span class="k">assert</span> <span class="n">find_code</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">)()</span> <span class="o">==</span> <span class="mi">42</span>
+<span class="k">assert</span> <span class="n">find_code</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="kc">None</span><span class="p">)()</span> <span class="o">==</span> <span class="mi">42</span>
+<span class="k">assert</span> <span class="n">find_code</span><span class="p">(</span><span class="s1">&#39;acos&#39;</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="s1">&#39;math&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">math</span><span class="o">.</span><span class="n">acos</span>
+<span class="k">assert</span> <span class="n">find_code</span><span class="p">(</span><span class="s1">&#39;acorr&#39;</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="s1">&#39;matplotlib.pyplot&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">plt</span><span class="o">.</span><span class="n">acorr</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I want to have a robust way to get code so I can store references to it in tables and files. For example, if a treatment depends on some scikit-learn code, I want to be able to reference it and store the hyperparameters.</p>
+<p>This ties to the idea that work can be dispatched locally or remotely, that systems can be developed that are appropriate for training or serving models.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="ValidateCode" class="doc_header"><code>class</code> <code>ValidateCode</code><a href="https://github.com/davidrichards/data_lab/tree/master/data_lab/develop/utils.py#L187" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ValidateCode</code>(<strong>**<code>kw</code></strong>)</p>
 </blockquote>
 <p>Validate code works. This is currently defaulted for a Treatment,
 but as I develop other tools, I'll come up with a more generic way to
@@ -211,7 +289,7 @@ to do this.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="validate_code" class="doc_header"><code>validate_code</code><a href="https://github.com/davidrichards/data-lab/tree/master/data_lab/develop/utils.py#L255" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>validate_code</code>(<strong>**<code>kw</code></strong>)</p>
+<h4 id="validate_code" class="doc_header"><code>validate_code</code><a href="https://github.com/davidrichards/data_lab/tree/master/data_lab/develop/utils.py#L270" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>validate_code</code>(<strong>**<code>kw</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -248,7 +326,6 @@ to do this.</p>
 <span class="n">subject</span> <span class="o">=</span> <span class="n">ValidateCode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;acos&#39;</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="s1">&#39;math&#39;</span><span class="p">)</span>
 <span class="k">assert</span> <span class="n">subject</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;acos&#39;</span>
 <span class="k">assert</span> <span class="n">subject</span><span class="o">.</span><span class="n">package</span> <span class="o">==</span> <span class="s1">&#39;math&#39;</span>
-<span class="k">assert</span> <span class="n">subject</span><span class="o">.</span><span class="n">loaded_package</span> <span class="o">==</span> <span class="n">math</span>
 <span class="k">assert</span> <span class="n">subject</span><span class="o">.</span><span class="n">fn</span> <span class="o">==</span> <span class="n">math</span><span class="o">.</span><span class="n">acos</span>
 
 <span class="n">model_keywords</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tools&#39;</span><span class="p">:</span> <span class="s1">&#39;for the model&#39;</span><span class="p">}</span>
@@ -297,7 +374,7 @@ to do this.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="ValidateRecord" class="doc_header"><code>class</code> <code>ValidateRecord</code><a href="https://github.com/davidrichards/data-lab/tree/master/data_lab/develop/utils.py#L259" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ValidateRecord</code>(<strong>**<code>kw</code></strong>)</p>
+<h2 id="ValidateRecord" class="doc_header"><code>class</code> <code>ValidateRecord</code><a href="https://github.com/davidrichards/data_lab/tree/master/data_lab/develop/utils.py#L274" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ValidateRecord</code>(<strong>**<code>kw</code></strong>)</p>
 </blockquote>
 <p>Given the state of a record, the data we record around the code,
 is it valid? ValidateCode deals with whether the validation should work
@@ -321,7 +398,7 @@ attributes in the database.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="validate_records" class="doc_header"><code>validate_records</code><a href="https://github.com/davidrichards/data-lab/tree/master/data_lab/develop/utils.py#L387" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>validate_records</code>(<strong>**<code>kw</code></strong>)</p>
+<h4 id="validate_records" class="doc_header"><code>validate_records</code><a href="https://github.com/davidrichards/data_lab/tree/master/data_lab/develop/utils.py#L402" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>validate_records</code>(<strong>**<code>kw</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -387,7 +464,7 @@ attributes in the database.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="store" class="doc_header"><code>store</code><a href="https://github.com/davidrichards/data-lab/tree/master/data_lab/develop/utils.py#L391" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>store</code>(<strong><code>object_store</code></strong>=<em><code>'data_lab.object_store.noop'</code></em>, <strong>**<code>kw</code></strong>)</p>
+<h4 id="store" class="doc_header"><code>store</code><a href="https://github.com/davidrichards/data_lab/tree/master/data_lab/develop/utils.py#L406" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>store</code>(<strong><code>object_store</code></strong>=<em><code>'data_lab.object_store.noop'</code></em>, <strong>**<code>kw</code></strong>)</p>
 </blockquote>
 <p>Store the record, if valid, in the provided object store. Defaults to a noop data store.</p>
 
@@ -408,7 +485,7 @@ attributes in the database.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="start" class="doc_header"><code>start</code><a href="https://github.com/davidrichards/data-lab/tree/master/data_lab/develop/utils.py#L398" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>start</code>(<strong>**<code>kw</code></strong>)</p>
+<h4 id="start" class="doc_header"><code>start</code><a href="https://github.com/davidrichards/data_lab/tree/master/data_lab/develop/utils.py#L413" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>start</code>(<strong>**<code>kw</code></strong>)</p>
 </blockquote>
 <p>Start a new record, ensuring the state is correct.</p>
 
@@ -429,7 +506,7 @@ attributes in the database.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="increment_version" class="doc_header"><code>increment_version</code><a href="https://github.com/davidrichards/data-lab/tree/master/data_lab/develop/utils.py#L403" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>increment_version</code>(<strong><code>version</code></strong>, <strong><code>level</code></strong>=<em><code>'patch'</code></em>, <strong>**<code>kw</code></strong>)</p>
+<h4 id="increment_version" class="doc_header"><code>increment_version</code><a href="https://github.com/davidrichards/data_lab/tree/master/data_lab/develop/utils.py#L418" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>increment_version</code>(<strong><code>version</code></strong>, <strong><code>level</code></strong>=<em><code>'patch'</code></em>, <strong>**<code>kw</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -449,7 +526,7 @@ attributes in the database.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="string_version" class="doc_header"><code>string_version</code><a href="https://github.com/davidrichards/data-lab/tree/master/data_lab/develop/utils.py#L424" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>string_version</code>(<strong><code>version</code></strong>, <strong>**<code>kw</code></strong>)</p>
+<h4 id="string_version" class="doc_header"><code>string_version</code><a href="https://github.com/davidrichards/data_lab/tree/master/data_lab/develop/utils.py#L439" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>string_version</code>(<strong><code>version</code></strong>, <strong>**<code>kw</code></strong>)</p>
 </blockquote>
 <p>Convert a dictionary version to a string format</p>
 
@@ -470,7 +547,7 @@ attributes in the database.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="revise" class="doc_header"><code>revise</code><a href="https://github.com/davidrichards/data-lab/tree/master/data_lab/develop/utils.py#L430" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>revise</code>(<strong><code>name</code></strong>, <strong><code>item</code></strong>=<em><code>None</code></em>, <strong><code>object_store</code></strong>=<em><code>'data_lab.object_store.noop'</code></em>, <strong>**<code>kw</code></strong>)</p>
+<h4 id="revise" class="doc_header"><code>revise</code><a href="https://github.com/davidrichards/data_lab/tree/master/data_lab/develop/utils.py#L445" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>revise</code>(<strong><code>name</code></strong>, <strong><code>item</code></strong>=<em><code>None</code></em>, <strong><code>object_store</code></strong>=<em><code>'data_lab.object_store.noop'</code></em>, <strong>**<code>kw</code></strong>)</p>
 </blockquote>
 <p>Revise a record, using the name to find the old record, if it exists.</p>
 

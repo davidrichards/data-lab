@@ -7,6 +7,7 @@ from datetime import datetime
 from functools import partial,lru_cache
 from pathlib import Path
 import pathlib
+from types import ModuleType
 
 import google.protobuf
 import numpy as np
@@ -79,12 +80,9 @@ class Config:
     def __contains__(self,k):  return k in self.d
     def save(self): save_config_file(self.config_file,self.d)
 
-# NOTE: Changed this to hardcode the github--not sure which one is best.
 def create_config(lib_name, user, path='.', cfg_name='settings.ini', branch='master',
-               git_url="https://github.com/%(user)s/data_lab/tree/%(branch)s/", custom_sidebar=False,
+               git_url="https://github.com/%(user)s/%(lib_name)s/tree/%(branch)s/", custom_sidebar=False,
                nbs_path='nbs', lib_path='%(lib_name)s', doc_path='docs', tst_flags='', version='0.0.1'):
     g = locals()
     config = {o:g[o] for o in 'lib_name user branch git_url lib_path nbs_path doc_path tst_flags version custom_sidebar'.split()}
     save_config_file(Path(path)/cfg_name, config)
-
-
