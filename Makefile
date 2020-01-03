@@ -4,7 +4,7 @@ all: lab docs
 
 lab: $(SRC)
 	nbdev_build_lib
-	touch lab
+	touch data_lab
 
 docs: $(SRC)
 	nbdev_build_docs
