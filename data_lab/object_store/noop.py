@@ -3,7 +3,7 @@
 __all__ = ['list_buckets', 'find_or_create_bucket', 'remove_bucket', 'find_items', 'put', 'get', 'remove']
 
 # Cell
-from lab.imports import *
+from ..imports import *
 
 # Cell
 

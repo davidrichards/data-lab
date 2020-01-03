@@ -78,7 +78,7 @@ summary: "summary"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="is_traditional_distribution" class="doc_header"><code>is_traditional_distribution</code><a href="https://github.com/davidrichards/lab/tree/master/lab/simulate/distribution.py#L12" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>is_traditional_distribution</code>(<strong><code>o</code></strong>)</p>
+<h4 id="is_traditional_distribution" class="doc_header"><code>is_traditional_distribution</code><a href="https://github.com/davidrichards/data-lab/tree/master/data_lab/simulate/distribution.py#L12" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>is_traditional_distribution</code>(<strong><code>o</code></strong>)</p>
 </blockquote>
 <p>A 'traditional' distribution has an <code>rvs</code>
 method attached, a tool for extracting random
@@ -101,7 +101,7 @@ variables. Check if this is the case.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="extract_values" class="doc_header"><code>extract_values</code><a href="https://github.com/davidrichards/lab/tree/master/lab/simulate/distribution.py#L18" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>extract_values</code>(<strong><code>o</code></strong>, <strong>*<code>a</code></strong>, <strong>**<code>kw</code></strong>)</p>
+<h4 id="extract_values" class="doc_header"><code>extract_values</code><a href="https://github.com/davidrichards/data-lab/tree/master/data_lab/simulate/distribution.py#L18" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>extract_values</code>(<strong><code>o</code></strong>, <strong>*<code>a</code></strong>, <strong>**<code>kw</code></strong>)</p>
 </blockquote>
 <p>Create a simple interface for either
 a distribution (e.g. <code>o.rvs(**kw)</code>) or a
@@ -125,7 +125,7 @@ object. (<code>np.array(o)</code>).</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="extract_test_values" class="doc_header"><code>extract_test_values</code><a href="https://github.com/davidrichards/lab/tree/master/lab/simulate/distribution.py#L27" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>extract_test_values</code>(<strong><code>o</code></strong>, <strong>*<code>a</code></strong>, <strong>**<code>kw</code></strong>)</p>
+<h4 id="extract_test_values" class="doc_header"><code>extract_test_values</code><a href="https://github.com/davidrichards/data-lab/tree/master/data_lab/simulate/distribution.py#L27" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>extract_test_values</code>(<strong><code>o</code></strong>, <strong>*<code>a</code></strong>, <strong>**<code>kw</code></strong>)</p>
 </blockquote>
 <p>Offer test-sized values</p>
 
@@ -139,7 +139,7 @@ object. (<code>np.array(o)</code>).</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The <a href="/lab/validate#is_traditional_distribution"><code>is_traditional_distribution</code></a> looks for whether this is something from <code>scipy.stats</code> (meaning, it has an <code>rvs</code> method).</p>
+<p>The <a href="/data_lab/validate#is_traditional_distribution"><code>is_traditional_distribution</code></a> looks for whether this is something from <code>scipy.stats</code> (meaning, it has an <code>rvs</code> method).</p>
 
 </div>
 </div>
@@ -159,8 +159,8 @@ object. (<code>np.array(o)</code>).</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Extract-Values">Extract Values<a class="anchor-link" href="#Extract-Values">&#182;</a></h2><p>I like having top-level functions that hide the details of underlying code. The <a href="/lab/validate#extract_values"><code>extract_values</code></a> function will see if it can create random values from an <code>rvs</code> method. If it can't do that, it will call a function. If not, it will ensure the object is a NumPy array.</p>
-<p>Also, there's a shortcut that suggests <a href="/lab/validate#DEFAULT_VALIDATION_SIZE"><code>DEFAULT_VALIDATION_SIZE</code></a> is a good sample size with <a href="/lab/validate#extract_test_values"><code>extract_test_values</code></a>.</p>
+<h2 id="Extract-Values">Extract Values<a class="anchor-link" href="#Extract-Values">&#182;</a></h2><p>I like having top-level functions that hide the details of underlying code. The <a href="/data_lab/validate#extract_values"><code>extract_values</code></a> function will see if it can create random values from an <code>rvs</code> method. If it can't do that, it will call a function. If not, it will ensure the object is a NumPy array.</p>
+<p>Also, there's a shortcut that suggests <a href="/data_lab/validate#DEFAULT_VALIDATION_SIZE"><code>DEFAULT_VALIDATION_SIZE</code></a> is a good sample size with <a href="/data_lab/validate#extract_test_values"><code>extract_test_values</code></a>.</p>
 
 </div>
 </div>
@@ -200,7 +200,7 @@ object. (<code>np.array(o)</code>).</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="plot_qq" class="doc_header"><code>plot_qq</code><a href="https://github.com/davidrichards/lab/tree/master/lab/simulate/distribution.py#L33" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_qq</code>(<strong><code>o</code></strong>, <strong>*<code>a</code></strong>, <strong><code>plot</code></strong>=<em><code>None</code></em>, <strong><code>display</code></strong>=<em><code>True</code></em>, <strong><code>alpha</code></strong>=<em><code>0.2</code></em>, <strong>**<code>kw</code></strong>)</p>
+<h4 id="plot_qq" class="doc_header"><code>plot_qq</code><a href="https://github.com/davidrichards/data-lab/tree/master/data_lab/simulate/distribution.py#L33" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_qq</code>(<strong><code>o</code></strong>, <strong>*<code>a</code></strong>, <strong><code>plot</code></strong>=<em><code>None</code></em>, <strong><code>display</code></strong>=<em><code>True</code></em>, <strong><code>alpha</code></strong>=<em><code>0.2</code></em>, <strong>**<code>kw</code></strong>)</p>
 </blockquote>
 <p>Show how a distribution deviates from
 normal (scatter vs the line)</p>
@@ -282,7 +282,7 @@ normal (scatter vs the line)</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="ideal_normal" class="doc_header"><code>ideal_normal</code><a href="https://github.com/davidrichards/lab/tree/master/lab/simulate/distribution.py#L60" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>ideal_normal</code>(<strong><code>o</code></strong>, <strong><code>bins</code></strong>, <strong>*<code>a</code></strong>, <strong>**<code>kw</code></strong>)</p>
+<h4 id="ideal_normal" class="doc_header"><code>ideal_normal</code><a href="https://github.com/davidrichards/data-lab/tree/master/data_lab/simulate/distribution.py#L60" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>ideal_normal</code>(<strong><code>o</code></strong>, <strong><code>bins</code></strong>, <strong>*<code>a</code></strong>, <strong>**<code>kw</code></strong>)</p>
 </blockquote>
 <p>Create a plotable sequence that expresses
 the ideal normal probability distribution across
@@ -305,7 +305,7 @@ a set of bins.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="plot_ditribution_vs_normal" class="doc_header"><code>plot_ditribution_vs_normal</code><a href="https://github.com/davidrichards/lab/tree/master/lab/simulate/distribution.py#L72" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_ditribution_vs_normal</code>(<strong><code>o</code></strong>, <strong>*<code>a</code></strong>, <strong><code>title</code></strong>=<em><code>'Distribution vs Normal'</code></em>, <strong><code>num_bins</code></strong>=<em><code>50</code></em>, <strong>**<code>kw</code></strong>)</p>
+<h4 id="plot_ditribution_vs_normal" class="doc_header"><code>plot_ditribution_vs_normal</code><a href="https://github.com/davidrichards/data-lab/tree/master/data_lab/simulate/distribution.py#L72" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_ditribution_vs_normal</code>(<strong><code>o</code></strong>, <strong>*<code>a</code></strong>, <strong><code>title</code></strong>=<em><code>'Distribution vs Normal'</code></em>, <strong><code>num_bins</code></strong>=<em><code>50</code></em>, <strong>**<code>kw</code></strong>)</p>
 </blockquote>
 <p>Show the difference between a distribution
 and an ideal normal distribution.</p>
@@ -394,7 +394,7 @@ and an ideal normal distribution.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="validate_with_shapiro_wilk" class="doc_header"><code>validate_with_shapiro_wilk</code><a href="https://github.com/davidrichards/lab/tree/master/lab/simulate/distribution.py#L98" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>validate_with_shapiro_wilk</code>(<strong><code>o</code></strong>, <strong>*<code>a</code></strong>, <strong><code>accept</code></strong>=<em><code>0.05</code></em>, <strong>**<code>kw</code></strong>)</p>
+<h4 id="validate_with_shapiro_wilk" class="doc_header"><code>validate_with_shapiro_wilk</code><a href="https://github.com/davidrichards/data-lab/tree/master/data_lab/simulate/distribution.py#L98" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>validate_with_shapiro_wilk</code>(<strong><code>o</code></strong>, <strong>*<code>a</code></strong>, <strong><code>accept</code></strong>=<em><code>0.05</code></em>, <strong>**<code>kw</code></strong>)</p>
 </blockquote>
 <p>Validate with the Shapiro-Wilk test...</p>
 
@@ -415,7 +415,7 @@ and an ideal normal distribution.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="validate_distribution" class="doc_header"><code>validate_distribution</code><a href="https://github.com/davidrichards/lab/tree/master/lab/simulate/distribution.py#L104" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>validate_distribution</code>(<strong><code>o</code></strong>, <strong><code>validator</code></strong>=<em><code>'validate_with_shapiro_wilk'</code></em>, <strong>**<code>kw</code></strong>)</p>
+<h4 id="validate_distribution" class="doc_header"><code>validate_distribution</code><a href="https://github.com/davidrichards/data-lab/tree/master/data_lab/simulate/distribution.py#L104" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>validate_distribution</code>(<strong><code>o</code></strong>, <strong><code>validator</code></strong>=<em><code>'validate_with_shapiro_wilk'</code></em>, <strong>**<code>kw</code></strong>)</p>
 </blockquote>
 <p>Validate a distribution generally, using Shapiro-Wilk as
 a default validation.</p>

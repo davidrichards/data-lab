@@ -16,6 +16,6 @@ entries:
       title: Title
       url: /protocols
     output: web
-    title: lab
+    title: data_lab
   output: web
   title: Sidebar

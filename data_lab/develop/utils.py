@@ -5,7 +5,7 @@ __all__ = ['listify', 'PASSING_STATUS', 'FAILING_STATUS', 'FormatValidation', 'f
            'string_version', 'revise']
 
 # Cell
-from lab.imports import *
+from ..imports import *
 import math # For testing
 import getpass
 

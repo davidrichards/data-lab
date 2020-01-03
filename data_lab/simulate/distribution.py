@@ -4,7 +4,7 @@ __all__ = ['is_traditional_distribution', 'extract_values', 'extract_test_values
            'ideal_normal', 'plot_ditribution_vs_normal', 'validate_with_shapiro_wilk', 'validate_distribution']
 
 # Cell
-from lab.imports import *
+from ..imports import *
 
 # Cell
 DEFAULT_VALIDATION_SIZE = 1000
