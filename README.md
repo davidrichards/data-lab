@@ -8,16 +8,14 @@
 
 -->
 
-# Lab
+# Data Lab
 
 > Push experiments into production.
 
 
-This file will become your README and also the index of your documentation.
-
 ## Install
 
-`pip install lab`
+`pip install tbd`
 
 ## How to use
 
