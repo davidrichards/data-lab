@@ -1,7 +1,7 @@
-repository: your_github_username/lab
+repository: davidrichards/data_lab
 output: web
-topnav_title: lab
-site_title: lab
+topnav_title: data_lab
+site_title: data_lab
 company_name: David Richards
 description: Tools to make experiments reproducible and publish them as services
 # Set to false to disable KaTeX math
