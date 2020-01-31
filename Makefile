@@ -1,6 +1,6 @@
 SRC = $(wildcard nbs/*.ipynb)
 
-all: lab docs
+all: clean lab test docs
 
 lab: $(SRC)
 	nbdev_build_lib
@@ -26,4 +26,6 @@ dist: clean
 	python setup.py sdist bdist_wheel
 
 clean:
+	nbdev_clean_nbs
+	nbdev_clean_nbs --fname experiments
 	rm -rf dist
